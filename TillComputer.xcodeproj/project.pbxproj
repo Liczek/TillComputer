@@ -13,6 +13,8 @@
 		DA9831C2218F1C69005A1A18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA9831C1218F1C69005A1A18 /* Assets.xcassets */; };
 		DA9831C5218F1C69005A1A18 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA9831C3218F1C69005A1A18 /* LaunchScreen.storyboard */; };
 		DA9831CD218F1FD3005A1A18 /* UIColor+theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9831CC218F1FD3005A1A18 /* UIColor+theme.swift */; };
+		DA9831CF218FA0ED005A1A18 /* ProgresBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9831CE218FA0ED005A1A18 /* ProgresBarView.swift */; };
+		DA9831D1218FA55C005A1A18 /* ComponentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9831D0218FA55C005A1A18 /* ComponentsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		DA9831C4218F1C69005A1A18 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DA9831C6218F1C69005A1A18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DA9831CC218F1FD3005A1A18 /* UIColor+theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+theme.swift"; sourceTree = "<group>"; };
+		DA9831CE218FA0ED005A1A18 /* ProgresBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgresBarView.swift; sourceTree = "<group>"; };
+		DA9831D0218FA55C005A1A18 /* ComponentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +63,8 @@
 				DA9831BA218F1C65005A1A18 /* AppDelegate.swift */,
 				DA9831CC218F1FD3005A1A18 /* UIColor+theme.swift */,
 				DA9831BC218F1C65005A1A18 /* ComputerProgresController.swift */,
+				DA9831D0218FA55C005A1A18 /* ComponentsView.swift */,
+				DA9831CE218FA0ED005A1A18 /* ProgresBarView.swift */,
 				DA9831BE218F1C65005A1A18 /* Main.storyboard */,
 				DA9831C1218F1C69005A1A18 /* Assets.xcassets */,
 				DA9831C3218F1C69005A1A18 /* LaunchScreen.storyboard */,
@@ -138,7 +144,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA9831D1218FA55C005A1A18 /* ComponentsView.swift in Sources */,
 				DA9831CD218F1FD3005A1A18 /* UIColor+theme.swift in Sources */,
+				DA9831CF218FA0ED005A1A18 /* ProgresBarView.swift in Sources */,
 				DA9831BD218F1C65005A1A18 /* ComputerProgresController.swift in Sources */,
 				DA9831BB218F1C65005A1A18 /* AppDelegate.swift in Sources */,
 			);
