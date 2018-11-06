@@ -13,6 +13,15 @@ class ComputerProgresController: UIViewController {
 	let finishValue: CGFloat = 3000
 	var currentValue: CGFloat = 100
 	var percentage: CGFloat = 0
+	let windowHeight = UIApplication.shared.keyWindow?.frame.height
+	let statusBarHeight = UIApplication.shared.statusBarFrame.height
+	
+	let navigationBarView: NavigationBarView = {
+		let view = NavigationBarView()
+		view.translatesAutoresizingMaskIntoConstraints = false
+		view.backgroundColor = .heavyGold
+		return view
+	}()
 	
 	let progresBarView: ProgresBarView = {
 		let view = ProgresBarView()
@@ -33,22 +42,15 @@ class ComputerProgresController: UIViewController {
 		return view
 	}()
 	
-	let addButton: UIButton = {
-		let view = UIButton()
-		view.translatesAutoresizingMaskIntoConstraints = false
-		view.setImage(UIImage(named: "dolar"), for: .normal)
-		view.imageView?.contentMode = .scaleAspectFit
-		return view
-	}()
+	
+	
+	
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
 		
-		navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: addButton)
-		addButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
-		addButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-		addButton.addTarget(self, action: #selector(addMoney), for: .touchUpInside)
+		
 
 		
 		navigationController?.navigationBar.isTranslucent = false
@@ -61,18 +63,24 @@ class ComputerProgresController: UIViewController {
 		navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.shinningGold, NSAttributedString.Key.font : UIFont.systemFont(ofSize: 25, weight: UIFont.Weight.bold)]
 		navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.shinningGold, NSAttributedString.Key.font : UIFont.systemFont(ofSize: 25, weight: UIFont.Weight.bold)]
 
+		view.addSubview(navigationBarView)
 		view.addSubview(progresBarView)
 		view.addSubview(componentsView)
 		view.addSubview(bottomBarView)
 		
 		NSLayoutConstraint.activate([
 			
-			progresBarView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+			navigationBarView.topAnchor.constraint(equalTo: view.topAnchor, constant: statusBarHeight),
+			navigationBarView.heightAnchor.constraint(equalToConstant: windowHeight! * 0.15),
+			navigationBarView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+			navigationBarView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+			
+			progresBarView.topAnchor.constraint(equalTo: navigationBarView.bottomAnchor),
 			progresBarView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
 			progresBarView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 			progresBarView.widthAnchor.constraint(equalToConstant: 50),
 			
-			componentsView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+			componentsView.topAnchor.constraint(equalTo: navigationBarView.bottomAnchor),
 			componentsView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
 			componentsView.leadingAnchor.constraint(equalTo: progresBarView.trailingAnchor),
 			componentsView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -86,10 +94,7 @@ class ComputerProgresController: UIViewController {
 		
 	}
 	
-	@objc func addMoney() {
-		let valueToAdd: CGFloat = 10
-		updateClearViewHeight(addedValue: valueToAdd)
-	}
+	
 	
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
@@ -99,8 +104,10 @@ class ComputerProgresController: UIViewController {
 		
 	}
 	
-	func updateProgres() {
-		
+	
+	@objc func addMoney() {
+		let valueToAdd: CGFloat = 10
+		updateClearViewHeight(addedValue: valueToAdd)
 	}
 	
 	func updateClearViewHeight(addedValue: CGFloat) {

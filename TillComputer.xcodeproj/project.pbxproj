@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA04B287219225E80054A69F /* NavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA04B286219225E80054A69F /* NavigationBarView.swift */; };
 		DA9831BB218F1C65005A1A18 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9831BA218F1C65005A1A18 /* AppDelegate.swift */; };
 		DA9831BD218F1C65005A1A18 /* ComputerProgresController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9831BC218F1C65005A1A18 /* ComputerProgresController.swift */; };
 		DA9831C0218F1C65005A1A18 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA9831BE218F1C65005A1A18 /* Main.storyboard */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DA04B286219225E80054A69F /* NavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarView.swift; sourceTree = "<group>"; };
 		DA9831B7218F1C65005A1A18 /* TillComputer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TillComputer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA9831BA218F1C65005A1A18 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DA9831BC218F1C65005A1A18 /* ComputerProgresController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComputerProgresController.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 				DA9831BA218F1C65005A1A18 /* AppDelegate.swift */,
 				DA9831CC218F1FD3005A1A18 /* UIColor+theme.swift */,
 				DA9831BC218F1C65005A1A18 /* ComputerProgresController.swift */,
+				DA04B286219225E80054A69F /* NavigationBarView.swift */,
 				DA9831D0218FA55C005A1A18 /* ComponentsView.swift */,
 				DA9831CE218FA0ED005A1A18 /* ProgresBarView.swift */,
 				DA9831BE218F1C65005A1A18 /* Main.storyboard */,
@@ -146,6 +149,7 @@
 			files = (
 				DA9831D1218FA55C005A1A18 /* ComponentsView.swift in Sources */,
 				DA9831CD218F1FD3005A1A18 /* UIColor+theme.swift in Sources */,
+				DA04B287219225E80054A69F /* NavigationBarView.swift in Sources */,
 				DA9831CF218FA0ED005A1A18 /* ProgresBarView.swift in Sources */,
 				DA9831BD218F1C65005A1A18 /* ComputerProgresController.swift in Sources */,
 				DA9831BB218F1C65005A1A18 /* AppDelegate.swift in Sources */,
