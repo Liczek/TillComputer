@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		DA04B287219225E80054A69F /* NavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA04B286219225E80054A69F /* NavigationBarView.swift */; };
+		DA04B289219236690054A69F /* CurrentMoneyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA04B288219236690054A69F /* CurrentMoneyView.swift */; };
 		DA9831BB218F1C65005A1A18 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9831BA218F1C65005A1A18 /* AppDelegate.swift */; };
 		DA9831BD218F1C65005A1A18 /* ComputerProgresController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9831BC218F1C65005A1A18 /* ComputerProgresController.swift */; };
 		DA9831C0218F1C65005A1A18 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA9831BE218F1C65005A1A18 /* Main.storyboard */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		DA04B286219225E80054A69F /* NavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarView.swift; sourceTree = "<group>"; };
+		DA04B288219236690054A69F /* CurrentMoneyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentMoneyView.swift; sourceTree = "<group>"; };
 		DA9831B7218F1C65005A1A18 /* TillComputer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TillComputer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA9831BA218F1C65005A1A18 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DA9831BC218F1C65005A1A18 /* ComputerProgresController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComputerProgresController.swift; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 				DA04B286219225E80054A69F /* NavigationBarView.swift */,
 				DA9831D0218FA55C005A1A18 /* ComponentsView.swift */,
 				DA9831CE218FA0ED005A1A18 /* ProgresBarView.swift */,
+				DA04B288219236690054A69F /* CurrentMoneyView.swift */,
 				DA9831BE218F1C65005A1A18 /* Main.storyboard */,
 				DA9831C1218F1C69005A1A18 /* Assets.xcassets */,
 				DA9831C3218F1C69005A1A18 /* LaunchScreen.storyboard */,
@@ -152,6 +155,7 @@
 				DA04B287219225E80054A69F /* NavigationBarView.swift in Sources */,
 				DA9831CF218FA0ED005A1A18 /* ProgresBarView.swift in Sources */,
 				DA9831BD218F1C65005A1A18 /* ComputerProgresController.swift in Sources */,
+				DA04B289219236690054A69F /* CurrentMoneyView.swift in Sources */,
 				DA9831BB218F1C65005A1A18 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

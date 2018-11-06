@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		let computerProgresController = ComputerProgresController()
 		let navController = UINavigationController(rootViewController: computerProgresController)
-		window?.rootViewController = computerProgresController
+		window?.rootViewController = navController
 		
 		return true
 	}

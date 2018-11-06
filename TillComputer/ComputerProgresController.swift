@@ -14,7 +14,6 @@ class ComputerProgresController: UIViewController {
 	var currentValue: CGFloat = 100
 	var percentage: CGFloat = 0
 	let windowHeight = UIApplication.shared.keyWindow?.frame.height
-	let statusBarHeight = UIApplication.shared.statusBarFrame.height
 	
 	let navigationBarView: NavigationBarView = {
 		let view = NavigationBarView()
@@ -42,16 +41,16 @@ class ComputerProgresController: UIViewController {
 		return view
 	}()
 	
+	let currentMoneyView: CurrentMoneyView = {
+		let view = CurrentMoneyView()
+		view.translatesAutoresizingMaskIntoConstraints = false
+		return view
+	}()
 	
-	
-	
-
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		
-		
-
+		navigationController?.setNavigationBarHidden(true, animated: false)
 		
 		navigationController?.navigationBar.isTranslucent = false
 		navigationController?.navigationBar.barTintColor = .heavyGold
@@ -67,10 +66,11 @@ class ComputerProgresController: UIViewController {
 		view.addSubview(progresBarView)
 		view.addSubview(componentsView)
 		view.addSubview(bottomBarView)
+		view.addSubview(currentMoneyView)
 		
 		NSLayoutConstraint.activate([
 			
-			navigationBarView.topAnchor.constraint(equalTo: view.topAnchor, constant: statusBarHeight),
+			navigationBarView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
 			navigationBarView.heightAnchor.constraint(equalToConstant: windowHeight! * 0.15),
 			navigationBarView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 			navigationBarView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -85,11 +85,14 @@ class ComputerProgresController: UIViewController {
 			componentsView.leadingAnchor.constraint(equalTo: progresBarView.trailingAnchor),
 			componentsView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 			
-//			bottomBarView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-//			bottomBarView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-//			bottomBarView.leadingAnchor.con
+			currentMoneyView.topAnchor.constraint(equalTo: progresBarView.topAnchor),
+			currentMoneyView.bottomAnchor.constraint(equalTo: progresBarView.bottomAnchor),
+			currentMoneyView.leadingAnchor.constraint(equalTo: progresBarView.trailingAnchor),
+			currentMoneyView.widthAnchor.constraint(equalToConstant: 40),
 			])
 		
+		
+		navigationBarView.addButton.addTarget(self, action: #selector(addMoney), for: .touchUpInside)
 		updateClearViewHeight(addedValue: 0)
 		
 	}
@@ -121,6 +124,10 @@ class ComputerProgresController: UIViewController {
 		progresBarView.progresViewShadowBottomAnchor.constant = -clearViewHeight
 		progresBarView.progresViewShadow.layoutIfNeeded()
 		progresBarView.progresValueLabel.text = "\((Int(percentage * 100)))%"
+		
+		currentMoneyView.currentMoney = Int(currentValue)
+		currentMoneyView.finishMoney = Int(finishValue)
+		currentMoneyView.configureMoneyLabel()
 	}
 
 

@@ -18,15 +18,18 @@ class NavigationBarView: UIView {
 		return view
 	}()
 	
-	let addButton: UIImageView = {
-		let view = UIImageView()
+	let addButton: UIButton = {
+		let view = UIButton(type: UIButton.ButtonType.system)
 		view.translatesAutoresizingMaskIntoConstraints = false
-		view.image = UIImage(named: "dolar")
+		view.setImage(UIImage(named: "dolar")?.withRenderingMode(.alwaysOriginal) , for: .normal)
 		view.contentMode = .scaleAspectFit
+		view.imageEdgeInsets = UIEdgeInsets(top: 7, left: 7, bottom: 7, right: 7)
 		view.layer.borderColor = UIColor.lightGold.cgColor
 		view.layer.borderWidth = 3
 		view.layer.cornerRadius = 25
 		view.clipsToBounds = true
+		
+		
 		return view
 	}()
 	
@@ -39,13 +42,13 @@ class NavigationBarView: UIView {
 		NSLayoutConstraint.activate([
 			wowImageView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
 			wowImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
-		wowImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-		
-		addButton.centerYAnchor.constraint(equalTo: wowImageView.centerYAnchor),
-		addButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-		addButton.heightAnchor.constraint(equalToConstant: 50),
-		addButton.widthAnchor.constraint(equalToConstant: 50),
-		])
+			wowImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+			
+			addButton.centerYAnchor.constraint(equalTo: wowImageView.centerYAnchor),
+			addButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+			addButton.heightAnchor.constraint(equalToConstant: 50),
+			addButton.widthAnchor.constraint(equalToConstant: 50),
+			])
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
