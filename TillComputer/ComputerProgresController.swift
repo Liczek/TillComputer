@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ComputerProgresController: UIViewController {
 	
@@ -44,11 +45,19 @@ class ComputerProgresController: UIViewController {
 	let currentMoneyView: CurrentMoneyView = {
 		let view = CurrentMoneyView()
 		view.translatesAutoresizingMaskIntoConstraints = false
+//		view.backgroundColor = .red
 		return view
 	}()
 	
+	var audioPlayer: AVAudioPlayer?
+	var url: URL?
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
+		let path = Bundle.main.path(forResource: "cha_ching.wav", ofType: nil)!
+		url = URL(fileURLWithPath: path)
+		
+		
 		
 		navigationController?.setNavigationBarHidden(true, animated: false)
 		
@@ -105,12 +114,68 @@ class ComputerProgresController: UIViewController {
 		
 		
 		
+		
 	}
 	
 	
 	@objc func addMoney() {
 		let valueToAdd: CGFloat = 10
-		updateClearViewHeight(addedValue: valueToAdd)
+		let moneyView: MoneyView = {
+			let view = MoneyView()
+//			view.backgroundColor = .blue
+			view.translatesAutoresizingMaskIntoConstraints = false
+			return view
+		}()
+		
+		do {
+			audioPlayer = try AVAudioPlayer(contentsOf: url!)
+			audioPlayer?.play()
+		} catch let err {
+			print(err)
+		}
+		
+		var centerXAnchor: NSLayoutConstraint!
+		var centerYAnchor: NSLayoutConstraint!
+
+		
+		UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+			
+			self.view.addSubview(moneyView)
+
+			
+			NSLayoutConstraint.activate([
+				moneyView.widthAnchor.constraint(equalToConstant: 110),
+				moneyView.heightAnchor.constraint(equalToConstant: 50),
+				])
+			centerXAnchor = moneyView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 0)
+			centerXAnchor.isActive = true
+			centerYAnchor = moneyView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: 0)
+			centerYAnchor.isActive = true
+			moneyView.transform = CGAffineTransform(scaleX: 3, y: 3)
+			
+			
+		}) { (true) in
+			UIView.animate(withDuration: 0.3, animations: {
+				moneyView.transform = CGAffineTransform(scaleX: 1, y: 1)
+				centerXAnchor.constant = -150
+				centerYAnchor.constant = 100
+				self.view.layoutIfNeeded()
+				moneyView.alpha = 0.2
+				
+			}, completion: { (true) in
+				moneyView.removeFromSuperview()
+				UIView.animate(withDuration: 0.5, animations: {
+					self.updateClearViewHeight(addedValue: valueToAdd)
+				})
+			})
+			
+			
+		}
+		
+		
+		
+		
+		
 	}
 	
 	func updateClearViewHeight(addedValue: CGFloat) {

@@ -16,7 +16,7 @@ class ComponentsView: UIView {
 	let blurView: UIView = {
 		let view = UIView()
 		view.translatesAutoresizingMaskIntoConstraints = false
-		view.backgroundColor = UIColor.gold.withAlphaComponent(0.7)
+		view.backgroundColor = UIColor.gold.withAlphaComponent(0.8)
 		return view
 	}()
 	
@@ -92,12 +92,12 @@ class ComponentsView: UIView {
 			cpuView.widthAnchor.constraint(equalTo: view.widthAnchor),
 			
 			mouseView.bottomAnchor.constraint(equalTo: cpuView.topAnchor, constant: -mainWindowHeight! * 0.015),
-			mouseView.heightAnchor.constraint(equalToConstant: mainWindowHeight! * 0.2),
+			mouseView.heightAnchor.constraint(equalToConstant: mainWindowHeight! * 0.15),
 			mouseView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 			mouseView.widthAnchor.constraint(equalTo: view.widthAnchor),
 			
 			headsetView.bottomAnchor.constraint(equalTo: mouseView.topAnchor, constant: -mainWindowHeight! * 0.015),
-			headsetView.heightAnchor.constraint(equalToConstant: mainWindowHeight! * 0.2),
+			headsetView.heightAnchor.constraint(equalToConstant: mainWindowHeight! * 0.15),
 			headsetView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 			headsetView.widthAnchor.constraint(equalTo: view.widthAnchor),
 			

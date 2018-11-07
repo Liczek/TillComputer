@@ -41,11 +41,11 @@ class NavigationBarView: UIView {
 		
 		NSLayoutConstraint.activate([
 			wowImageView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
-			wowImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
+			wowImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
 			wowImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
 			
 			addButton.centerYAnchor.constraint(equalTo: wowImageView.centerYAnchor),
-			addButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+			addButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
 			addButton.heightAnchor.constraint(equalToConstant: 50),
 			addButton.widthAnchor.constraint(equalToConstant: 50),
 			])
