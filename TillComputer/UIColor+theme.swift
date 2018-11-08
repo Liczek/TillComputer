@@ -15,4 +15,12 @@ extension UIColor {
 	static let darkGold = UIColor(red: 180/255, green: 132/255, blue: 44/255, alpha: 1)
 	static let heavyGold = UIColor(red: 140/255, green: 96/255, blue: 31/255, alpha: 1)
 	static let shinningGold = UIColor(red: 251/255, green: 227/255, blue: 79/255, alpha: 1)
+	
+	static let bgColor = UIColor(red: 68/255, green: 64/255, blue: 64/255, alpha: 1)
+	static let barsColor = UIColor(red: 42/255, green: 43/255, blue: 54/255, alpha: 1)
+	static let lightRed = UIColor(red: 217/255, green: 88/255, blue: 90/255, alpha: 1)
+	static let darkRed = UIColor(red: 185/255, green: 43/255, blue: 57/255, alpha: 1)
+	static let lightGrayColor = UIColor(red: 171/255, green: 170/255, blue: 170/255, alpha: 1)
+	static let veryDarkRed = UIColor(red: 150/255, green: 45/255, blue: 49/255, alpha: 1)
+	static let shadowColor = UIColor(red: 97/255, green: 87/255, blue: 67/255, alpha: 1)
 }

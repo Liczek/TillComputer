@@ -16,7 +16,7 @@ class ComponentsView: UIView {
 	let blurView: UIView = {
 		let view = UIView()
 		view.translatesAutoresizingMaskIntoConstraints = false
-		view.backgroundColor = UIColor.gold.withAlphaComponent(0.8)
+		view.backgroundColor = UIColor.bgColor.withAlphaComponent(0.8)
 		return view
 	}()
 	
@@ -60,7 +60,7 @@ class ComponentsView: UIView {
 	let progresBordeView: UIView = {
 		let view = UIView()
 		view.translatesAutoresizingMaskIntoConstraints = false
-		view.backgroundColor = .lightGold
+		view.backgroundColor = .darkRed
 		return view
 	}()
 	
@@ -108,7 +108,7 @@ class ComponentsView: UIView {
 			progresBordeView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 			progresBordeView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 			progresBordeView.bottomAnchor.constraint(equalTo: blurView.bottomAnchor),
-			progresBordeView.heightAnchor.constraint(equalToConstant: 2),
+			progresBordeView.heightAnchor.constraint(equalToConstant: 4),
 			
 			])
 		blurViewBottomAnchor = blurView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -progresValue)

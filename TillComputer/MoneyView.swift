@@ -13,6 +13,12 @@ class MoneyView: UIView {
 	let container: UIView = {
 		let view = UIView()
 		view.translatesAutoresizingMaskIntoConstraints = false
+		
+		view.layer.borderColor = UIColor.lightGold.cgColor
+		view.layer.borderWidth = 3
+		view.layer.cornerRadius = 10
+		view.clipsToBounds = true
+		view.backgroundColor = UIColor.lightGold.withAlphaComponent(0.5)
 		return view
 	}()
 	
@@ -31,10 +37,7 @@ class MoneyView: UIView {
 		view.setImage(UIImage(named: "dolar")?.withRenderingMode(.alwaysOriginal) , for: .normal)
 		view.contentMode = .scaleAspectFit
 		view.imageEdgeInsets = UIEdgeInsets(top: 7, left: 7, bottom: 7, right: 7)
-		view.layer.borderColor = UIColor.lightGold.cgColor
-		view.layer.borderWidth = 3
-		view.layer.cornerRadius = 25
-		view.clipsToBounds = true
+		
 		return view
 	}()
 	

@@ -10,6 +10,14 @@ import UIKit
 
 class NavigationBarView: UIView {
 	
+	let bgImageView: UIImageView = {
+		let view = UIImageView()
+		view.translatesAutoresizingMaskIntoConstraints = false
+		view.image = UIImage(named: "bghorde")
+		view.contentMode = .scaleAspectFill
+		return view
+	}()
+	
 	let wowImageView: UIImageView = {
 		let view = UIImageView()
 		view.translatesAutoresizingMaskIntoConstraints = false
@@ -26,20 +34,28 @@ class NavigationBarView: UIView {
 		view.imageEdgeInsets = UIEdgeInsets(top: 7, left: 7, bottom: 7, right: 7)
 		view.layer.borderColor = UIColor.lightGold.cgColor
 		view.layer.borderWidth = 3
-		view.layer.cornerRadius = 25
+		view.layer.cornerRadius = 10
+		view.alpha = 0.8
 		view.clipsToBounds = true
-		
-		
 		return view
 	}()
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		
+		addSubview(bgImageView)
 		addSubview(wowImageView)
 		addSubview(addButton)
 		
+		
+		
+		
 		NSLayoutConstraint.activate([
+			bgImageView.topAnchor.constraint(equalTo: topAnchor),
+			bgImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
+			bgImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+			bgImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+			
 			wowImageView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
 			wowImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
 			wowImageView.centerXAnchor.constraint(equalTo: centerXAnchor),

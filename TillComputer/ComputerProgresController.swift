@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class ComputerProgresController: UIViewController {
+class ComputerProgresController: UIViewController, AVAudioPlayerDelegate {
 	
 	let finishValue: CGFloat = 3000
 	var currentValue: CGFloat = 100
@@ -17,13 +17,16 @@ class ComputerProgresController: UIViewController {
 	
 	var audioPlayer: AVAudioPlayer?
 	var url: URL?
+	let audioSession = AVAudioSession.sharedInstance()
+	
+	
 	
 	let windowHeight = UIApplication.shared.keyWindow?.frame.height
 	
 	let navigationBarView: NavigationBarView = {
 		let view = NavigationBarView()
 		view.translatesAutoresizingMaskIntoConstraints = false
-		view.backgroundColor = .heavyGold
+		view.backgroundColor = .barsColor
 		return view
 	}()
 	
@@ -62,7 +65,7 @@ class ComputerProgresController: UIViewController {
 		setupNavigationController()
 		
 		setupUI()
-		
+	
 		navigationBarView.addButton.addTarget(self, action: #selector(addMoney), for: .touchUpInside)
 		updateClearViewHeight(addedValue: 0)
 	}
@@ -74,6 +77,9 @@ class ComputerProgresController: UIViewController {
 		
 	}
 	
+	override var preferredStatusBarStyle: UIStatusBarStyle {
+		return .lightContent
+	}
 	
 	@objc func addMoney() {
 		let valueToAdd: CGFloat = 10
@@ -98,9 +104,17 @@ class ComputerProgresController: UIViewController {
 			}, completion: { (true) in
 				moneyView.removeFromSuperview()
 				
-				UIView.animate(withDuration: 0.5, animations: {
+				UIView.animate(withDuration: 0.5, delay: 0, options: UIView.AnimationOptions.curveLinear, animations: {
 					self.updateClearViewHeight(addedValue: valueToAdd)
+				}, completion: { (true) in
+					UIView.animate(withDuration: 0.5, animations: {
+						
+						
+						
+					})
 				})
+				
+				
 			})
 		}
 	}
@@ -150,7 +164,7 @@ class ComputerProgresController: UIViewController {
 	}
 	
 	fileprivate func setupUI() {
-		view.backgroundColor = .heavyGold
+		view.backgroundColor = .barsColor
 		
 		view.addSubview(navigationBarView)
 		view.addSubview(progresBarView)
@@ -182,21 +196,51 @@ class ComputerProgresController: UIViewController {
 			])
 	}
 
-
+	
+	
+	func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+		
+		print("Sound Finished")
+		
+			audioPlayer?.stop()
+			do {
+				try self.audioSession.setActive(false, options: AVAudioSession.SetActiveOptions.notifyOthersOnDeactivation)
+			} catch let err {
+				print("Failed to turn Up Backgrund Volume", err)
+			}
+	}
+	
 	fileprivate func configureAudioPaths() {
 		let path = Bundle.main.path(forResource: "cha_ching.wav", ofType: nil)!
 		url = URL(fileURLWithPath: path)
+		audioPlayer?.delegate = self
 		audioPlayer?.prepareToPlay()
 	}
 	
 	fileprivate func playChaChingSound() {
+		
 		do {
+			
+			turnDownBackgroundVolume()
 			audioPlayer = try AVAudioPlayer(contentsOf: url!)
+			audioPlayer?.delegate = self
 			audioPlayer?.play()
+			
 		} catch let err {
 			print(err)
 		}
 	}
+	
+	fileprivate func turnDownBackgroundVolume() {
+		do {
+			try audioSession.setActive(true, options: AVAudioSession.SetActiveOptions.notifyOthersOnDeactivation)
+		} catch let err {
+			print("Failed to turn Down Backgrund Volume", err)
+		}
+		
+	}
+	
+
 	
 }
 

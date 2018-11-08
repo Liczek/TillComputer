@@ -24,6 +24,7 @@ class CurrentMoneyView: UIView {
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
+		
 		addSubview(currentMoneyLabel)
 		currentMoneyLabel.transform = CGAffineTransform(rotationAngle: CGFloat.pi * 1.5)
 		
@@ -39,10 +40,10 @@ class CurrentMoneyView: UIView {
 	}
 	
 	func configureMoneyLabel() {
-		let attributedText = NSMutableAttributedString(string: "\(currentMoney)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.heavyGold, NSAttributedString.Key.font : UIFont.systemFont(ofSize: 26, weight: UIFont.Weight.heavy)])
+		let attributedText = NSMutableAttributedString(string: "\(currentMoney)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightRed, NSAttributedString.Key.font : UIFont.systemFont(ofSize: 26, weight: UIFont.Weight.heavy)])
 		attributedText.append(NSAttributedString(string: " zł", attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGold, NSAttributedString.Key.font : UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.semibold)]))
 		attributedText.append(NSAttributedString(string: " / ", attributes: [NSAttributedString.Key.foregroundColor : UIColor.shinningGold, NSAttributedString.Key.font : UIFont.systemFont(ofSize: 26, weight: UIFont.Weight.bold)]))
-		attributedText.append(NSAttributedString(string: "\(finishMoney)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.heavyGold, NSAttributedString.Key.font : UIFont.systemFont(ofSize: 26, weight: UIFont.Weight.heavy)]))
+		attributedText.append(NSAttributedString(string: "\(finishMoney)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightRed, NSAttributedString.Key.font : UIFont.systemFont(ofSize: 26, weight: UIFont.Weight.heavy)]))
 		attributedText.append(NSAttributedString(string: " zł", attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGold, NSAttributedString.Key.font : UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.semibold)]))
 		
 		currentMoneyLabel.attributedText = attributedText

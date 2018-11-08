@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,13 +18,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 		
 		
+		
 		window = UIWindow()
 		window?.makeKeyAndVisible()
-		window?.backgroundColor = .red
+		window?.backgroundColor = .barsColor
 		
 		let computerProgresController = ComputerProgresController()
 		let navController = UINavigationController(rootViewController: computerProgresController)
 		window?.rootViewController = navController
+		
+		let audioSession = AVAudioSession.sharedInstance()
+		
+		do {
+			// duckOthers ścisza tło jak otworzysz aplikacje
+			// mixWithOthers nadaje dźwięk równolegle
+			try audioSession.setCategory(AVAudioSession.Category.playback, mode: AVAudioSession.Mode.default, options: AVAudioSession.CategoryOptions.duckOthers)
+		} catch {
+			print("Setting category to AVAudioSessionCategoryPlayback failed.")
+		}
 		
 		return true
 	}

@@ -22,14 +22,14 @@ class ProgresBarView: UIView {
 	
 	let progresViewShadow: UIView = {
 		let view = UIView()
-		view.backgroundColor = UIColor.shinningGold.withAlphaComponent(0.8)
+		view.backgroundColor = UIColor.shadowColor.withAlphaComponent(1)
 		view.translatesAutoresizingMaskIntoConstraints = false
 		return view
 	}()
 	
 	let progresView: UIView = {
 		let view = UIView()
-		view.backgroundColor = .darkGold
+		view.backgroundColor = .lightRed
 		view.translatesAutoresizingMaskIntoConstraints = false
 		return view
 	}()
@@ -45,21 +45,35 @@ class ProgresBarView: UIView {
 	let progresBordeView: UIView = {
 		let view = UIView()
 		view.translatesAutoresizingMaskIntoConstraints = false
-		view.backgroundColor = .lightGold
+		view.backgroundColor = .veryDarkRed
 		return view
 	}()
 	
 	let rigthVerticalSeparator: UIView = {
 		let view = UIView()
 		view.translatesAutoresizingMaskIntoConstraints = false
-		view.backgroundColor = .heavyGold
+		view.backgroundColor = .darkGold
 		return view
 	}()
 	
 	let leftVerticalSeparator: UIView = {
 		let view = UIView()
 		view.translatesAutoresizingMaskIntoConstraints = false
-		view.backgroundColor = .heavyGold
+		view.backgroundColor = .darkGold
+		return view
+	}()
+	
+	let topSeparator: UIView = {
+		let view = UIView()
+		view.translatesAutoresizingMaskIntoConstraints = false
+		view.backgroundColor = .darkGold
+		return view
+	}()
+	
+	let bottomSeparator: UIView = {
+		let view = UIView()
+		view.translatesAutoresizingMaskIntoConstraints = false
+		view.backgroundColor = .darkGold
 		return view
 	}()
 	
@@ -67,10 +81,13 @@ class ProgresBarView: UIView {
 		super.init(frame: frame)
 		
 		addSubview(view)
+		view.addSubview(progresViewShadow)
 		view.addSubview(progresView)
 		view.addSubview(rigthVerticalSeparator)
 		view.addSubview(leftVerticalSeparator)
-		view.addSubview(progresViewShadow)
+		view.addSubview(topSeparator)
+		view.addSubview(bottomSeparator)
+		
 		view.addSubview(progresValueLabel)
 		view.addSubview(progresBordeView)
 		
@@ -81,7 +98,7 @@ class ProgresBarView: UIView {
 			view.leadingAnchor.constraint(equalTo: leadingAnchor),
 			view.trailingAnchor.constraint(equalTo: trailingAnchor),
 			
-			progresView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+			progresView.topAnchor.constraint(equalTo: progresViewShadow.bottomAnchor),
 			progresView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 			progresView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 			progresView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -96,15 +113,25 @@ class ProgresBarView: UIView {
 			leftVerticalSeparator.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
 			leftVerticalSeparator.widthAnchor.constraint(equalToConstant: 5),
 			
-			progresViewShadow.topAnchor.constraint(equalTo: view.topAnchor),
-			progresViewShadow.leadingAnchor.constraint(equalTo: progresView.leadingAnchor),
-			progresViewShadow.trailingAnchor.constraint(equalTo: progresView.trailingAnchor),
+			topSeparator.topAnchor.constraint(equalTo: topAnchor),
+			topSeparator.heightAnchor.constraint(equalToConstant: 3),
+			topSeparator.leadingAnchor.constraint(equalTo: leftVerticalSeparator.trailingAnchor),
+			topSeparator.trailingAnchor.constraint(equalTo: rigthVerticalSeparator.leadingAnchor),
+			
+			bottomSeparator.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+			bottomSeparator.heightAnchor.constraint(equalToConstant: 3),
+			bottomSeparator.leadingAnchor.constraint(equalTo: leftVerticalSeparator.trailingAnchor),
+			bottomSeparator.trailingAnchor.constraint(equalTo: rigthVerticalSeparator.leadingAnchor),
+			
+			progresViewShadow.topAnchor.constraint(equalTo: topSeparator.bottomAnchor),
+			progresViewShadow.leadingAnchor.constraint(equalTo: leftVerticalSeparator.trailingAnchor),
+			progresViewShadow.trailingAnchor.constraint(equalTo: rigthVerticalSeparator.leadingAnchor),
 			
 			progresValueLabel.topAnchor.constraint(equalTo: progresViewShadow.bottomAnchor),
 			progresValueLabel.centerXAnchor.constraint(equalTo: progresViewShadow.centerXAnchor),
 			
-			progresBordeView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-			progresBordeView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+			progresBordeView.leadingAnchor.constraint(equalTo: leftVerticalSeparator.trailingAnchor),
+			progresBordeView.trailingAnchor.constraint(equalTo: rigthVerticalSeparator.leadingAnchor),
 			progresBordeView.bottomAnchor.constraint(equalTo: progresViewShadow.bottomAnchor),
 			progresBordeView.heightAnchor.constraint(equalToConstant: 4),
 			])
