@@ -14,7 +14,7 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate {
 	let finishValue: CGFloat = 3000
 	var currentValue: CGFloat = 0
 	var percentage: CGFloat = 0
-	let valueToAdd: CGFloat = 500
+	let valueToAdd: CGFloat = 100
 	
 	var audioPlayer: AVAudioPlayer?
 	var url: URL?
@@ -82,6 +82,12 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate {
 	}
 	
 	@objc func addMoney() {
+		
+		if currentValue == finishValue {
+			updateClearViewHeight(addedValue: 0)
+			return
+		}
+		
 		let moneyView: MoneyView = {
 			let view = MoneyView()
 			view.translatesAutoresizingMaskIntoConstraints = false
@@ -118,6 +124,7 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate {
 		
 		progresBarHeight = progresBarView.view.frame.height - 6
 		
+		currentValue += addedValue
 		if percentage >= 1 {
 			clearViewHeight = progresBarHeight * percentage
 		} else {
@@ -131,7 +138,14 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate {
 		progresBarView.progresViewShadow.layoutIfNeeded()
 		progresBarView.progresValueLabel.text = "\((Int(percentage * 100)))%"
 		
-		if currentValue >= finishValue {
+		
+		
+		
+		if currentValue == finishValue {
+			createAlertController(title: "Gratulacje", message: "Już nie klikaj, tylko szukaj komputer :)", action: "WoW Classic :D")
+			currentMoneyView.currentMoney = Int(currentValue)
+			currentMoneyView.configureMoneyLabel()
+		} else if currentValue > finishValue {
 			createAlertController(title: "Gratulacje", message: "Już nie klikaj, tylko szukaj komputer :)", action: "WoW Classic :D")
 			return
 		} else {
@@ -144,9 +158,6 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate {
 			currentMoneyView.currentMoney = Int(currentValue)
 			currentMoneyView.finishMoney = Int(finishValue)
 			currentMoneyView.configureMoneyLabel()
-			
-			currentValue += addedValue
-			
 		}
 	}
 	
