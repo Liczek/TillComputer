@@ -64,6 +64,7 @@ class MoneyView: UIView {
 			
 			
 			])
+		
 	}
 	
 	required init?(coder aDecoder: NSCoder) {

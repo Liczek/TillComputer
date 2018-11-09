@@ -20,16 +20,21 @@ class ProgresBarView: UIView {
 		return view
 	}()
 	
-	let progresViewShadow: UIView = {
-		let view = UIView()
-		view.backgroundColor = UIColor.shadowColor.withAlphaComponent(1)
+	let progresViewShadow: UIImageView = {
+		let view = UIImageView()
 		view.translatesAutoresizingMaskIntoConstraints = false
+		view.backgroundColor = UIColor.bgColor.withAlphaComponent(0.8)
+		view.image = UIImage(named: "leftBar")
+		view.contentMode = .scaleAspectFill
+		view.clipsToBounds = true
+		view.backgroundColor = .gold
+		view.alpha = 0.9
 		return view
 	}()
 	
 	let progresView: UIView = {
 		let view = UIView()
-		view.backgroundColor = .lightRed
+		view.backgroundColor = .veryDarkRed
 		view.translatesAutoresizingMaskIntoConstraints = false
 		return view
 	}()
@@ -52,7 +57,7 @@ class ProgresBarView: UIView {
 	let rigthVerticalSeparator: UIView = {
 		let view = UIView()
 		view.translatesAutoresizingMaskIntoConstraints = false
-		view.backgroundColor = .darkGold
+		view.backgroundColor = .veryDarkRed
 		return view
 	}()
 	
@@ -66,7 +71,7 @@ class ProgresBarView: UIView {
 	let topSeparator: UIView = {
 		let view = UIView()
 		view.translatesAutoresizingMaskIntoConstraints = false
-		view.backgroundColor = .darkGold
+		view.backgroundColor = .veryDarkRed
 		return view
 	}()
 	

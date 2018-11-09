@@ -13,10 +13,14 @@ class ComponentsView: UIView {
 	var progresValue: CGFloat = 200
 	let mainWindowHeight = UIApplication.shared.keyWindow?.frame.height
 	
-	let blurView: UIView = {
-		let view = UIView()
+	let blurView: UIImageView = {
+		let view = UIImageView()
 		view.translatesAutoresizingMaskIntoConstraints = false
 		view.backgroundColor = UIColor.bgColor.withAlphaComponent(0.8)
+		view.image = UIImage(named: "shadowImage")
+		view.contentMode = .scaleAspectFill
+		view.clipsToBounds = true
+		view.alpha = 0.9
 		return view
 	}()
 	
@@ -69,12 +73,17 @@ class ComponentsView: UIView {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		
+		
+		
 		addSubview(view)
 		view.addSubview(cpuView)
 		view.addSubview(mouseView)
 		view.addSubview(headsetView)
 		
 		view.addSubview(blurView)
+		
+		
+		
 		view.addSubview(progresBordeView)
 		
 		view.addSubview(wowView)
@@ -113,6 +122,7 @@ class ComponentsView: UIView {
 			])
 		blurViewBottomAnchor = blurView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -progresValue)
 		blurViewBottomAnchor.isActive = true
+		
 	}
 	
 	required init?(coder aDecoder: NSCoder) {

@@ -21,6 +21,7 @@ extension UIColor {
 	static let lightRed = UIColor(red: 217/255, green: 88/255, blue: 90/255, alpha: 1)
 	static let darkRed = UIColor(red: 185/255, green: 43/255, blue: 57/255, alpha: 1)
 	static let lightGrayColor = UIColor(red: 171/255, green: 170/255, blue: 170/255, alpha: 1)
-	static let veryDarkRed = UIColor(red: 150/255, green: 45/255, blue: 49/255, alpha: 1)
+	static let veryDarkRed = UIColor(red: 175/255, green: 13/255, blue: 8/255, alpha: 1)
 	static let shadowColor = UIColor(red: 97/255, green: 87/255, blue: 67/255, alpha: 1)
+	static let brownish = UIColor(red: 151/255, green: 125/255, blue: 64/255, alpha: 1)
 }

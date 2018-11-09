@@ -12,7 +12,7 @@ import AVFoundation
 class ComputerProgresController: UIViewController, AVAudioPlayerDelegate {
 	
 	let finishValue: CGFloat = 3000
-	var currentValue: CGFloat = 100
+	var currentValue: CGFloat = 2500
 	var percentage: CGFloat = 0
 	
 	var audioPlayer: AVAudioPlayer?
@@ -32,6 +32,7 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate {
 	
 	let progresBarView: ProgresBarView = {
 		let view = ProgresBarView()
+		view.backgroundColor = .gold
 		view.translatesAutoresizingMaskIntoConstraints = false
 		return view
 	}()
@@ -119,6 +120,7 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate {
 		}
 	}
 	
+	
 	fileprivate func updateClearViewHeight(addedValue: CGFloat) {
 		currentValue += addedValue
 		percentage = currentValue / finishValue
@@ -195,8 +197,6 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate {
 			currentMoneyView.widthAnchor.constraint(equalToConstant: 40),
 			])
 	}
-
-	
 	
 	func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
 		
