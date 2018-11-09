@@ -14,7 +14,7 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate {
 	let finishValue: CGFloat = 3000
 	var currentValue: CGFloat = 0
 	var percentage: CGFloat = 0
-	let valueToAdd: CGFloat = 100
+//	let ValueToAdd: CGFloat = 100
 	
 	var audioPlayer: AVAudioPlayer?
 	var url: URL?
@@ -68,6 +68,7 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate {
 		setupUI()
 	
 		navigationBarView.addButton.addTarget(self, action: #selector(addMoney), for: .touchUpInside)
+		navigationBarView.listButton.addTarget(self, action: #selector(openList), for: .touchUpInside)
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {
@@ -91,7 +92,7 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate {
 		let moneyView: MoneyView = {
 			let view = MoneyView()
 			view.translatesAutoresizingMaskIntoConstraints = false
-			view.moneyLabel.text = "\(Int(valueToAdd))"
+			view.moneyLabel.text = "\(Int(ValueToAdd))"
 			return view
 		}()
 		
@@ -110,13 +111,28 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate {
 				moneyView.removeFromSuperview()
 				
 				UIView.animate(withDuration: 0.5, delay: 0, options: UIView.AnimationOptions.curveLinear, animations: {
-					self.updateClearViewHeight(addedValue: self.valueToAdd)
+					self.updateClearViewHeight(addedValue: ValueToAdd)
 				}, completion: { (true) in
 					UIView.animate(withDuration: 0.5, animations: {
 					})
 				})
 			})
 		}
+		
+		
+	}
+	
+	@objc func openList() {
+		print("Open List")
+		createListViewControler()
+	}
+	
+	fileprivate func createListViewControler() {
+		let listViewController = ListViewController()
+		let navController = UINavigationController(rootViewController: listViewController)
+		navController.navigationBar.prefersLargeTitles = true
+//		navigationController?.pushViewController(listViewController, animated: true)
+		present(navController, animated: true, completion: nil)
 	}
 	
 	fileprivate func updateClearViewHeight(addedValue: CGFloat) {
@@ -125,6 +141,12 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate {
 		progresBarHeight = progresBarView.view.frame.height - 6
 		
 		currentValue += addedValue
+		
+		if addedValue != 0 {
+			let donate = Donation.init(date: Date(), currentMoneyValue: currentValue)
+			Donations.append(donate)
+		}
+		
 		if percentage >= 1 {
 			clearViewHeight = progresBarHeight * percentage
 		} else {
@@ -142,16 +164,20 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate {
 		
 		
 		if currentValue == finishValue {
+			navigationBarView.addButton.isEnabled = false
 			createAlertController(title: "Gratulacje", message: "Już nie klikaj, tylko szukaj komputer :)", action: "WoW Classic :D")
 			currentMoneyView.currentMoney = Int(currentValue)
 			currentMoneyView.configureMoneyLabel()
 		} else if currentValue > finishValue {
+			navigationBarView.addButton.isEnabled = false
 			createAlertController(title: "Gratulacje", message: "Już nie klikaj, tylko szukaj komputer :)", action: "WoW Classic :D")
 			return
 		} else {
 			if currentValue == finishValue / 2 {
+				navigationBarView.addButton.isEnabled = false
 				createAlertController(title: "Jeszcze daleka droga", message: "Jesteś dopiero w połowie", action: "Dam radę")
 			} else if currentValue == finishValue - 500 {
+				navigationBarView.addButton.isEnabled = false
 				createAlertController(title: "Komp już jest", message: "Dozbieraj na prO headset i gryzonia", action: "Zbieram, zbieram ;)")
 			}
 			
@@ -165,7 +191,9 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate {
 		let alertController =  UIAlertController(title: title, message: message, preferredStyle: .alert)
 		let action = UIAlertAction(title: action, style: .default, handler: nil)
 		alertController.addAction(action)
-		self.present(alertController, animated: true, completion: nil)
+		self.present(alertController, animated: true) {
+			self.navigationBarView.addButton.isEnabled = true
+		}
 	}
 	
 	fileprivate func animateMoneyView(moneyView: MoneyView) {

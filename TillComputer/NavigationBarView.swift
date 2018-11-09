@@ -40,13 +40,28 @@ class NavigationBarView: UIView {
 		return view
 	}()
 	
+	let listButton: UIButton = {
+		let view = UIButton(type: UIButton.ButtonType.system)
+		view.translatesAutoresizingMaskIntoConstraints = false
+		view.setImage(UIImage(named: "list2")?.withRenderingMode(.alwaysTemplate) , for: .normal)
+		view.tintColor = .lightGold
+		view.contentMode = .scaleAspectFit
+		view.imageEdgeInsets = UIEdgeInsets(top: 7, left: 7, bottom: 7, right: 7)
+		view.layer.borderColor = UIColor.lightGold.cgColor
+		view.layer.borderWidth = 3
+		view.layer.cornerRadius = 10
+		view.alpha = 0.8
+		view.clipsToBounds = true
+		return view
+	}()
+	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		
 		addSubview(bgImageView)
 		addSubview(wowImageView)
 		addSubview(addButton)
-		
+		addSubview(listButton)
 		
 		
 		
@@ -64,6 +79,11 @@ class NavigationBarView: UIView {
 			addButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
 			addButton.heightAnchor.constraint(equalToConstant: 50),
 			addButton.widthAnchor.constraint(equalToConstant: 50),
+			
+			listButton.centerYAnchor.constraint(equalTo: wowImageView.centerYAnchor),
+			listButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+			listButton.heightAnchor.constraint(equalToConstant: 50),
+			listButton.widthAnchor.constraint(equalToConstant: 50),
 			])
 	}
 	

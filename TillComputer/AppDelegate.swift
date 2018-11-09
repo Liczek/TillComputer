@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		window = UIWindow()
 		window?.makeKeyAndVisible()
-		window?.backgroundColor = .barsColor
+		window?.backgroundColor = .red
 		
 		let computerProgresController = ComputerProgresController()
 		let navController = UINavigationController(rootViewController: computerProgresController)
