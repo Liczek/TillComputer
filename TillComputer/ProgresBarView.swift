@@ -138,12 +138,13 @@ class ProgresBarView: UIView {
 			progresBordeView.leadingAnchor.constraint(equalTo: leftVerticalSeparator.trailingAnchor),
 			progresBordeView.trailingAnchor.constraint(equalTo: rigthVerticalSeparator.leadingAnchor),
 			progresBordeView.bottomAnchor.constraint(equalTo: progresViewShadow.bottomAnchor),
-			progresBordeView.heightAnchor.constraint(equalToConstant: 4),
+			progresBordeView.heightAnchor.constraint(equalToConstant: 3),
 			])
 		
 		progresValueLabel.text = "\(progresValue)%"
 		
 		progresViewShadowBottomAnchor = progresViewShadow.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -progresValue)
+		
 		progresViewShadowBottomAnchor.isActive = true
 		
 	}

@@ -12,14 +12,15 @@ import AVFoundation
 class ComputerProgresController: UIViewController, AVAudioPlayerDelegate {
 	
 	let finishValue: CGFloat = 3000
-	var currentValue: CGFloat = 2500
+	var currentValue: CGFloat = 0
 	var percentage: CGFloat = 0
+	let valueToAdd: CGFloat = 500
 	
 	var audioPlayer: AVAudioPlayer?
 	var url: URL?
 	let audioSession = AVAudioSession.sharedInstance()
 	
-	
+	var progresBarHeight: CGFloat = 0
 	
 	let windowHeight = UIApplication.shared.keyWindow?.frame.height
 	
@@ -64,18 +65,16 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate {
 		
 		configureAudioPaths()
 		setupNavigationController()
-		
 		setupUI()
 	
 		navigationBarView.addButton.addTarget(self, action: #selector(addMoney), for: .touchUpInside)
-		updateClearViewHeight(addedValue: 0)
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		
 		navigationController?.navigationBar.prefersLargeTitles = false
-		
+		updateClearViewHeight(addedValue: 0)
 	}
 	
 	override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -83,11 +82,10 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate {
 	}
 	
 	@objc func addMoney() {
-		let valueToAdd: CGFloat = 10
-		
 		let moneyView: MoneyView = {
 			let view = MoneyView()
 			view.translatesAutoresizingMaskIntoConstraints = false
+			view.moneyLabel.text = "\(Int(valueToAdd))"
 			return view
 		}()
 		
@@ -106,26 +104,26 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate {
 				moneyView.removeFromSuperview()
 				
 				UIView.animate(withDuration: 0.5, delay: 0, options: UIView.AnimationOptions.curveLinear, animations: {
-					self.updateClearViewHeight(addedValue: valueToAdd)
+					self.updateClearViewHeight(addedValue: self.valueToAdd)
 				}, completion: { (true) in
 					UIView.animate(withDuration: 0.5, animations: {
-						
-						
-						
 					})
 				})
-				
-				
 			})
 		}
 	}
 	
-	
 	fileprivate func updateClearViewHeight(addedValue: CGFloat) {
-		currentValue += addedValue
-		percentage = currentValue / finishValue
-		let windowHeight = componentsView.mainWindowHeight
-		let clearViewHeight = windowHeight! * percentage
+		var clearViewHeight: CGFloat!
+		
+		progresBarHeight = progresBarView.view.frame.height - 6
+		
+		if percentage >= 1 {
+			clearViewHeight = progresBarHeight * percentage
+		} else {
+			percentage = currentValue / finishValue
+			clearViewHeight = progresBarHeight * percentage
+		}
 		
 		componentsView.blurViewBottomAnchor.constant = -clearViewHeight
 		componentsView.blurView.layoutIfNeeded()
@@ -133,9 +131,30 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate {
 		progresBarView.progresViewShadow.layoutIfNeeded()
 		progresBarView.progresValueLabel.text = "\((Int(percentage * 100)))%"
 		
-		currentMoneyView.currentMoney = Int(currentValue)
-		currentMoneyView.finishMoney = Int(finishValue)
-		currentMoneyView.configureMoneyLabel()
+		if currentValue >= finishValue {
+			createAlertController(title: "Gratulacje", message: "Już nie klikaj, tylko szukaj komputer :)", action: "WoW Classic :D")
+			return
+		} else {
+			if currentValue == finishValue / 2 {
+				createAlertController(title: "Jeszcze daleka droga", message: "Jesteś dopiero w połowie", action: "Dam radę")
+			} else if currentValue == finishValue - 500 {
+				createAlertController(title: "Komp już jest", message: "Dozbieraj na prO headset i gryzonia", action: "Zbieram, zbieram ;)")
+			}
+			
+			currentMoneyView.currentMoney = Int(currentValue)
+			currentMoneyView.finishMoney = Int(finishValue)
+			currentMoneyView.configureMoneyLabel()
+			
+			currentValue += addedValue
+			
+		}
+	}
+	
+	func createAlertController(title: String, message: String, action: String){
+		let alertController =  UIAlertController(title: title, message: message, preferredStyle: .alert)
+		let action = UIAlertAction(title: action, style: .default, handler: nil)
+		alertController.addAction(action)
+		self.present(alertController, animated: true, completion: nil)
 	}
 	
 	fileprivate func animateMoneyView(moneyView: MoneyView) {
