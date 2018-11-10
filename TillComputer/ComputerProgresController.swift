@@ -144,7 +144,7 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate {
 		
 		if addedValue != 0 {
 			let donate = Donation.init(date: Date(), currentMoneyValue: currentValue)
-			Donations.append(donate)
+			Donations.insert(donate, at: 0)
 		}
 		
 		if percentage >= 1 {

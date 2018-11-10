@@ -51,6 +51,8 @@ class DonationCell: UITableViewCell {
 		label.text = "test"
 		label.textColor = .darkRed
 		label.font = UIFont.systemFont(ofSize: 22, weight: .heavy)
+		label.adjustsFontSizeToFitWidth = true
+		label.minimumScaleFactor = 0.5
 		return label
 	}()
 	
@@ -62,8 +64,9 @@ class DonationCell: UITableViewCell {
 		addSubview(bgImage)
 		addSubview(bgView)
 		bgView.addSubview(icon)
-		bgView.addSubview(donationDateLabel)
 		bgView.addSubview(donationValueLabel)
+		bgView.addSubview(donationDateLabel)
+		
 		
 		NSLayoutConstraint.activate([
 			
@@ -82,15 +85,19 @@ class DonationCell: UITableViewCell {
 			icon.leadingAnchor.constraint(equalTo: bgView.leadingAnchor, constant: 8),
 			icon.heightAnchor.constraint(equalTo: icon.widthAnchor),
 			
+			//			donationValueLabel.leadingAnchor.constraint(equalTo: donationDateLabel.trailingAnchor, constant: 8),
+			donationValueLabel.widthAnchor.constraint(equalToConstant: 80),
+			donationValueLabel.trailingAnchor.constraint(equalTo: bgView.trailingAnchor, constant: -8),
+			donationValueLabel.topAnchor.constraint(equalTo: bgView.topAnchor, constant: 8),
+			donationValueLabel.bottomAnchor.constraint(equalTo: bgView.bottomAnchor, constant: -8),
+			
 			donationDateLabel.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: 32),
 			donationDateLabel.topAnchor.constraint(equalTo: bgView.topAnchor, constant: 8),
 			donationDateLabel.bottomAnchor.constraint(equalTo: bgView.bottomAnchor, constant: -8),
+			donationDateLabel.trailingAnchor.constraint(equalTo: donationValueLabel.leadingAnchor, constant: -8)
 //			donationValueLabel.widthAnchor.constraint(equalTo: icon.widthAnchor),
 			
-			donationValueLabel.leadingAnchor.constraint(equalTo: donationDateLabel.trailingAnchor, constant: 8),
-			donationValueLabel.trailingAnchor.constraint(equalTo: bgView.trailingAnchor, constant: -16),
-			donationValueLabel.topAnchor.constraint(equalTo: bgView.topAnchor, constant: 8),
-			donationValueLabel.bottomAnchor.constraint(equalTo: bgView.bottomAnchor, constant: -8),
+
 			
 			])
 		
