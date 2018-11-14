@@ -12,7 +12,7 @@ import AVFoundation
 class ComputerProgresController: UIViewController, AVAudioPlayerDelegate {
 	
 	let finishValue: CGFloat = 3000
-	var currentValue: CGFloat = 0
+	var currentValue: CGFloat = 1000
 	var percentage: CGFloat = 0
 //	let ValueToAdd: CGFloat = 100
 	
@@ -84,6 +84,8 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate {
 	
 	@objc func addMoney() {
 		
+		navigationBarView.addButton.isEnabled = false
+		
 		if currentValue == finishValue {
 			updateClearViewHeight(addedValue: 0)
 			return
@@ -116,10 +118,9 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate {
 					UIView.animate(withDuration: 0.5, animations: {
 					})
 				})
+				self.navigationBarView.addButton.isEnabled = true
 			})
 		}
-		
-		
 	}
 	
 	@objc func openList() {
