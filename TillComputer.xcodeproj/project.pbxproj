@@ -18,6 +18,8 @@
 		DA9831CD218F1FD3005A1A18 /* UIColor+theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9831CC218F1FD3005A1A18 /* UIColor+theme.swift */; };
 		DA9831CF218FA0ED005A1A18 /* ProgresBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9831CE218FA0ED005A1A18 /* ProgresBarView.swift */; };
 		DA9831D1218FA55C005A1A18 /* ComponentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9831D0218FA55C005A1A18 /* ComponentsView.swift */; };
+		DAC0688B219C9F0700B311CA /* TillComputerModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DAC06889219C9F0700B311CA /* TillComputerModel.xcdatamodeld */; };
+		DAC06890219CA06A00B311CA /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC0688F219CA06A00B311CA /* CoreDataManager.swift */; };
 		DAFB3C9C21937FBB0021CD53 /* cha_ching.wav in Resources */ = {isa = PBXBuildFile; fileRef = DAFB3C9B21937FBB0021CD53 /* cha_ching.wav */; };
 		DAFB3C9E219640300021CD53 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFB3C9D219640300021CD53 /* ListViewController.swift */; };
 		DAFB3CA0219642090021CD53 /* DonationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFB3C9F219642090021CD53 /* DonationCell.swift */; };
@@ -39,6 +41,8 @@
 		DA9831CC218F1FD3005A1A18 /* UIColor+theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+theme.swift"; sourceTree = "<group>"; };
 		DA9831CE218FA0ED005A1A18 /* ProgresBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgresBarView.swift; sourceTree = "<group>"; };
 		DA9831D0218FA55C005A1A18 /* ComponentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsView.swift; sourceTree = "<group>"; };
+		DAC0688A219C9F0700B311CA /* TillComputerModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TillComputerModel.xcdatamodel; sourceTree = "<group>"; };
+		DAC0688F219CA06A00B311CA /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		DAFB3C9B21937FBB0021CD53 /* cha_ching.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = cha_ching.wav; sourceTree = "<group>"; };
 		DAFB3C9D219640300021CD53 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		DAFB3C9F219642090021CD53 /* DonationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonationCell.swift; sourceTree = "<group>"; };
@@ -78,23 +82,49 @@
 			children = (
 				DA9831BA218F1C65005A1A18 /* AppDelegate.swift */,
 				DA9831CC218F1FD3005A1A18 /* UIColor+theme.swift */,
-				DA9831BC218F1C65005A1A18 /* ComputerProgresController.swift */,
-				DAFB3C9D219640300021CD53 /* ListViewController.swift */,
-				DAFB3C9F219642090021CD53 /* DonationCell.swift */,
+				DAC0688C219C9F3100B311CA /* Views */,
 				DAFB3CA3219652890021CD53 /* Donation.swift */,
-				DA04B286219225E80054A69F /* NavigationBarView.swift */,
-				DA9831D0218FA55C005A1A18 /* ComponentsView.swift */,
-				DA9831CE218FA0ED005A1A18 /* ProgresBarView.swift */,
-				DA04B288219236690054A69F /* CurrentMoneyView.swift */,
-				DA04B28A219244DB0054A69F /* MoneyView.swift */,
 				DA9831BE218F1C65005A1A18 /* Main.storyboard */,
 				DA9831C1218F1C69005A1A18 /* Assets.xcassets */,
 				DA9831C3218F1C69005A1A18 /* LaunchScreen.storyboard */,
 				DA9831C6218F1C69005A1A18 /* Info.plist */,
 				DAFB3C9B21937FBB0021CD53 /* cha_ching.wav */,
 				DAFB3CA121964A590021CD53 /* Config.swift */,
+				DAC06889219C9F0700B311CA /* TillComputerModel.xcdatamodeld */,
+				DAC0688F219CA06A00B311CA /* CoreDataManager.swift */,
 			);
 			path = TillComputer;
+			sourceTree = "<group>";
+		};
+		DAC0688C219C9F3100B311CA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DAC0688D219C9F3D00B311CA /* MainView */,
+				DAC0688E219C9F4B00B311CA /* List */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DAC0688D219C9F3D00B311CA /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				DA9831BC218F1C65005A1A18 /* ComputerProgresController.swift */,
+				DA04B286219225E80054A69F /* NavigationBarView.swift */,
+				DA9831D0218FA55C005A1A18 /* ComponentsView.swift */,
+				DA9831CE218FA0ED005A1A18 /* ProgresBarView.swift */,
+				DA04B288219236690054A69F /* CurrentMoneyView.swift */,
+				DA04B28A219244DB0054A69F /* MoneyView.swift */,
+			);
+			path = MainView;
+			sourceTree = "<group>";
+		};
+		DAC0688E219C9F4B00B311CA /* List */ = {
+			isa = PBXGroup;
+			children = (
+				DAFB3C9D219640300021CD53 /* ListViewController.swift */,
+				DAFB3C9F219642090021CD53 /* DonationCell.swift */,
+			);
+			path = List;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -176,10 +206,12 @@
 				DAFB3CA221964A590021CD53 /* Config.swift in Sources */,
 				DA9831BD218F1C65005A1A18 /* ComputerProgresController.swift in Sources */,
 				DAFB3CA0219642090021CD53 /* DonationCell.swift in Sources */,
+				DAC0688B219C9F0700B311CA /* TillComputerModel.xcdatamodeld in Sources */,
 				DAFB3C9E219640300021CD53 /* ListViewController.swift in Sources */,
 				DA04B28B219244DB0054A69F /* MoneyView.swift in Sources */,
 				DAFB3CA4219652890021CD53 /* Donation.swift in Sources */,
 				DA04B289219236690054A69F /* CurrentMoneyView.swift in Sources */,
+				DAC06890219CA06A00B311CA /* CoreDataManager.swift in Sources */,
 				DA9831BB218F1C65005A1A18 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -380,6 +412,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		DAC06889219C9F0700B311CA /* TillComputerModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				DAC0688A219C9F0700B311CA /* TillComputerModel.xcdatamodel */,
+			);
+			currentVersion = DAC0688A219C9F0700B311CA /* TillComputerModel.xcdatamodel */;
+			path = TillComputerModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = DA9831AF218F1C65005A1A18 /* Project object */;
 }

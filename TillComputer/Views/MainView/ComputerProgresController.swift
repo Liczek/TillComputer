@@ -14,7 +14,6 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate {
 	let finishValue: CGFloat = 3000
 	var currentValue: CGFloat = 1000
 	var percentage: CGFloat = 0
-//	let ValueToAdd: CGFloat = 100
 	
 	var audioPlayer: AVAudioPlayer?
 	var url: URL?
@@ -90,6 +89,10 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate {
 			updateClearViewHeight(addedValue: 0)
 			return
 		}
+		
+		let salary  = CoreDataManager.shared.createSalary(date: Date())
+//		print(salary.0?.date, salary.0?.value)
+		
 		
 		let moneyView: MoneyView = {
 			let view = MoneyView()
