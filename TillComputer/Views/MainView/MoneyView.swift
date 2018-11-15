@@ -37,7 +37,6 @@ class MoneyView: UIView {
 		view.setImage(UIImage(named: "dolar")?.withRenderingMode(.alwaysOriginal) , for: .normal)
 		view.contentMode = .scaleAspectFit
 		view.imageEdgeInsets = UIEdgeInsets(top: 7, left: 7, bottom: 7, right: 7)
-		
 		return view
 	}()
 	
@@ -49,6 +48,7 @@ class MoneyView: UIView {
 		container.addSubview(moneyLabel)
 		
 		NSLayoutConstraint.activate([
+			
 			container.topAnchor.constraint(equalTo: topAnchor),
 			container.bottomAnchor.constraint(equalTo: bottomAnchor),
 			container.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -62,9 +62,7 @@ class MoneyView: UIView {
 			moneyLabel.trailingAnchor.constraint(equalTo: dolarImageView.leadingAnchor),
 			moneyLabel.centerYAnchor.constraint(equalTo: dolarImageView.centerYAnchor),
 			
-			
 			])
-		
 	}
 	
 	required init?(coder aDecoder: NSCoder) {

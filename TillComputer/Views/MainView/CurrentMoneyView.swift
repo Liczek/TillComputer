@@ -15,12 +15,10 @@ class CurrentMoneyView: UIView {
 	var currentMoneyLabel: UILabel = {
 		var label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
-		label.text = "100zł / 3000zł"
+		label.text = "XX / XXXXX"
 		label.textColor = .shinningGold
 		return label
 	}()
-	
-	
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
@@ -31,6 +29,7 @@ class CurrentMoneyView: UIView {
 		configureMoneyLabel()
 		
 		NSLayoutConstraint.activate([
+			
 			currentMoneyLabel.topAnchor.constraint(equalTo: topAnchor),
 			currentMoneyLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
 			currentMoneyLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
