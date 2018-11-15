@@ -8,61 +8,124 @@
 
 import UIKit
 
+protocol LiveViewControllerDelegate {
+	func didRemoveSalaries(numberOfRemovedSalaries: Int)
+}
+
 class ListViewController: UITableViewController {
 	
-//	var donationsDate = [Date(), Date(),Date(), Date(),Date(), Date(),Date(), Date(),Date(), Date(),]
+	var salaries = [Salary]()
 	
 	let cellID = "cellID"
 	
+	var numberOfDeletedRows = 0
+	
 	let bgImageView: UIImageView = {
 		let view = UIImageView()
-//		view.translatesAutoresizingMaskIntoConstraints = false
 		view.image = UIImage(named: "shadowImage")
 		view.contentMode = .scaleToFill
 		view.clipsToBounds = true
 		return view
 	}()
 	
+	var delegate: LiveViewControllerDelegate?
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		view.backgroundColor = .clear
+		configureNavigationController()
+		configureTableView()
+		loadSalariesData()
+	}
+	
+	fileprivate func configureNavigationController() {
 		navigationItem.title = "Donations"
-		
 		navigationController?.navigationBar.barTintColor = .veryDarkRed
 		navigationController?.navigationBar.isTranslucent = false
 		navigationController?.navigationBar.tintColor = .black
 		
+		navigationItem.leftBarButtonItem = UIBarButtonItem(title: "<< Back", style: .plain, target: self, action: #selector(handleBackButton))
+		
+		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.trash, target: self, action: #selector(presentResetSalariesAlertController))
+	}
+	
+	fileprivate func configureTableView() {
 		tableView.register(DonationCell.self, forCellReuseIdentifier: cellID)
 		tableView.separatorStyle = .none
 		tableView.tableFooterView = UIView()
 		tableView.backgroundView = bgImageView
-		
-		navigationItem.leftBarButtonItem = UIBarButtonItem(title: "<< Back", style: .plain, target: self, action: #selector(backToMenu))
-		
+		tableView.allowsSelection = false
 	}
 	
-	@objc fileprivate func backToMenu() {
+	fileprivate func loadSalariesData() {
+		salaries = CoreDataManager.shared.fetchSalaries()
+	}
+	
+	@objc fileprivate func handleBackButton() {
+		delegate?.didRemoveSalaries(numberOfRemovedSalaries: numberOfDeletedRows)
 		dismiss(animated: true, completion: nil)
 	}
 	
-	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return Donations.count
+	@objc fileprivate func presentResetSalariesAlertController() {
+		
+		let alertController = UIAlertController(title: "UWAGA!!!", message: "Jesteś pewien, że chcesz wymazać swoje wszystkie wpłaty?", preferredStyle: .alert)
+		let actionAccept = UIAlertAction(title: "Im sure!", style: .destructive) { (alert) in
+			self.resetCoreDataSalariesContainer()
+			self.dismiss(animated: true, completion: nil)
+		}
+		let actionSkip = UIAlertAction(title: "Noooo", style: .default) { (alert) in
+			print("test skip")
+		}
+		
+		alertController.addAction(actionAccept)
+		alertController.addAction(actionSkip)
+		
+		present(alertController, animated: true, completion: nil)
 	}
 	
-	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! DonationCell
-		let date = Donations[indexPath.row].date
-		let dateString = configureDate(date: date)
-		cell.donationDateLabel.text = dateString
-		let currentMoney = Donations[indexPath.row].currentMoneyValue
-		cell.donationValueLabel.text = "\(Int(currentMoney))zł"
-		return cell
+	fileprivate func resetCoreDataSalariesContainer() {
+		self.delegate?.didRemoveSalaries(numberOfRemovedSalaries: self.salaries.count)
+		CoreDataManager.shared.resetCoreDataContainer()
 	}
 	
-	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		return 64
+	fileprivate func presentAlertControllerForRowDeletion(indexPath: IndexPath, inTableView: UITableView) {
+		let alertController = UIAlertController(title: "Warning!!!", message: "Are you sure you want do remove this salarie", preferredStyle: .alert)
+		
+		let actionAccept = UIAlertAction(title: "Im sure!", style: .destructive) { (alert) in
+			
+			self.deleteSalaryFromCoreDataAt(indexPath: indexPath)
+			UIView.transition(with: inTableView, duration: 0.5, options: UIView.AnimationOptions.transitionCrossDissolve, animations: {
+				inTableView.reloadData()
+			})
+			
+			self.countValueOfDeletedRows()
+		}
+		
+		let actionSkip = UIAlertAction(title: "Noooo", style: .default) { (alert) in
+			print("test skip")
+		}
+		
+		alertController.addAction(actionAccept)
+		alertController.addAction(actionSkip)
+		
+		present(alertController, animated: true, completion: nil)
 	}
 	
+	fileprivate func deleteSalaryFromCoreDataAt(indexPath: IndexPath) {
+		let context = CoreDataManager.shared.persistentContainer.viewContext
+		let salary = salaries[indexPath.row]
+		salaries.remove(at: indexPath.row)
+		context.delete(salary)
+		do {
+			try context.save()
+		} catch let err {
+			print("Failed to delete salary", err)
+		}
+	}
+	
+	fileprivate func countValueOfDeletedRows() {
+		self.numberOfDeletedRows += 1
+	}
 	
 	fileprivate func configureDate(date: Date) -> String {
 		var dateString = ""
@@ -70,7 +133,40 @@ class ListViewController: UITableViewController {
 		let stringFormat = "dd/MM/yyyy - hh:mm"
 		dateFormatter.dateFormat = stringFormat
 		dateString = dateFormatter.string(from: date)
-		print(dateString)
 		return dateString
 	}
+}
+
+//MARK:- TableView Extension
+extension ListViewController {
+	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return salaries.count
+	}
+	
+	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! DonationCell
+		
+		let salary = salaries[indexPath.row]
+		let date = salary.date ?? Date()
+		let dateString = configureDate(date: date)
+		let value = salary.value
+		let currentValue = value * Float(salaries.count - indexPath.row)
+		cell.donationDateLabel.text = dateString
+		cell.donationValueLabel.text = "\(Int(currentValue))zł"
+		return cell
+	}
+	
+	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+		return 64
+	}
+	
+	override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+		
+		let deleteAction = UITableViewRowAction(style: .normal, title: "Delete") { (_, indexPath) in
+			self.presentAlertControllerForRowDeletion(indexPath: indexPath, inTableView: tableView)
+		}
+		deleteAction.backgroundColor = .veryDarkRed
+		return [deleteAction]
+	}
+	
 }

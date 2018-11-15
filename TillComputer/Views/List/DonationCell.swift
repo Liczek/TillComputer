@@ -67,7 +67,6 @@ class DonationCell: UITableViewCell {
 		bgView.addSubview(donationValueLabel)
 		bgView.addSubview(donationDateLabel)
 		
-		
 		NSLayoutConstraint.activate([
 			
 			bgImage.topAnchor.constraint(equalTo: topAnchor, constant: 8),
@@ -85,7 +84,6 @@ class DonationCell: UITableViewCell {
 			icon.leadingAnchor.constraint(equalTo: bgView.leadingAnchor, constant: 8),
 			icon.heightAnchor.constraint(equalTo: icon.widthAnchor),
 			
-			//			donationValueLabel.leadingAnchor.constraint(equalTo: donationDateLabel.trailingAnchor, constant: 8),
 			donationValueLabel.widthAnchor.constraint(equalToConstant: 80),
 			donationValueLabel.trailingAnchor.constraint(equalTo: bgView.trailingAnchor, constant: -8),
 			donationValueLabel.topAnchor.constraint(equalTo: bgView.topAnchor, constant: 8),
@@ -95,12 +93,8 @@ class DonationCell: UITableViewCell {
 			donationDateLabel.topAnchor.constraint(equalTo: bgView.topAnchor, constant: 8),
 			donationDateLabel.bottomAnchor.constraint(equalTo: bgView.bottomAnchor, constant: -8),
 			donationDateLabel.trailingAnchor.constraint(equalTo: donationValueLabel.leadingAnchor, constant: -8)
-//			donationValueLabel.widthAnchor.constraint(equalTo: icon.widthAnchor),
-			
-
 			
 			])
-		
 	}
 	
 	required init?(coder aDecoder: NSCoder) {

@@ -8,5 +8,5 @@
 
 import UIKit
 
-let ValueToAdd: CGFloat = 100
+let ValueToAdd: CGFloat = 10
 var Donations = [Donation]()

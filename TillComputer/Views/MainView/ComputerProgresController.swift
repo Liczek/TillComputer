@@ -9,10 +9,12 @@
 import UIKit
 import AVFoundation
 
-class ComputerProgresController: UIViewController, AVAudioPlayerDelegate {
+class ComputerProgresController: UIViewController, AVAudioPlayerDelegate, LiveViewControllerDelegate {
+	
+	
 	
 	let finishValue: CGFloat = 3000
-	var currentValue: CGFloat = 1000
+	var currentValue: CGFloat = 2900
 	var percentage: CGFloat = 0
 	
 	var audioPlayer: AVAudioPlayer?
@@ -62,6 +64,8 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
+		configureCurrentValue()
+		
 		configureAudioPaths()
 		setupNavigationController()
 		setupUI()
@@ -90,8 +94,9 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate {
 			return
 		}
 		
-		let salary  = CoreDataManager.shared.createSalary(date: Date())
-//		print(salary.0?.date, salary.0?.value)
+		//Creating Salary in Core Data
+		_ = CoreDataManager.shared.createSalary(date: Date())
+
 		
 		
 		let moneyView: MoneyView = {
@@ -131,12 +136,28 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate {
 		createListViewControler()
 	}
 	
+	fileprivate func configureCurrentValue() {
+//		let context = CoreDataManager.shared.persistentContainer.viewContext
+		
+		let salaries = CoreDataManager.shared.fetchSalaries()
+		currentValue = ValueToAdd * CGFloat(salaries.count)
+	}
+	
 	fileprivate func createListViewControler() {
 		let listViewController = ListViewController()
+		listViewController.delegate = self
 		let navController = UINavigationController(rootViewController: listViewController)
 		navController.navigationBar.prefersLargeTitles = true
 //		navigationController?.pushViewController(listViewController, animated: true)
 		present(navController, animated: true, completion: nil)
+	}
+	
+	func didRemoveSalaries(numberOfRemovedSalaries: Int) {
+		UIView.animate(withDuration: 2) {
+			let removedValue = ValueToAdd * CGFloat(numberOfRemovedSalaries)
+			self.currentValue -= removedValue
+		}
+		
 	}
 	
 	fileprivate func updateClearViewHeight(addedValue: CGFloat) {
@@ -158,13 +179,15 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate {
 			clearViewHeight = progresBarHeight * percentage
 		}
 		
-		componentsView.blurViewBottomAnchor.constant = -clearViewHeight
-		componentsView.blurView.layoutIfNeeded()
-		progresBarView.progresViewShadowBottomAnchor.constant = -clearViewHeight
-		progresBarView.progresViewShadow.layoutIfNeeded()
-		progresBarView.progresValueLabel.text = "\((Int(percentage * 100)))%"
 		
-		
+		//Its not working
+		UIView.animate(withDuration: 3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+			self.componentsView.blurViewBottomAnchor.constant = -clearViewHeight
+			self.componentsView.blurView.layoutIfNeeded()
+			self.progresBarView.progresViewShadowBottomAnchor.constant = -clearViewHeight
+			self.progresBarView.progresViewShadow.layoutIfNeeded()
+			self.progresBarView.progresValueLabel.text = "\((Int(self.percentage * 100)))%"
+		})
 		
 		
 		if currentValue == finishValue {
@@ -179,7 +202,7 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate {
 		} else {
 			if currentValue == finishValue / 2 {
 				navigationBarView.addButton.isEnabled = false
-				createAlertController(title: "Jeszcze daleka droga", message: "Jesteś dopiero w połowie", action: "Dam radę")
+				createAlertController(title: "No no no", message: "Już jesteś w połowie", action: "Dam radę")
 			} else if currentValue == finishValue - 500 {
 				navigationBarView.addButton.isEnabled = false
 				createAlertController(title: "Komp już jest", message: "Dozbieraj na prO headset i gryzonia", action: "Zbieram, zbieram ;)")

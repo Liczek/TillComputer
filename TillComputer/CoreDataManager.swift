@@ -53,6 +53,18 @@ struct CoreDataManager {
 		}
 	}
 	
-	
+	func resetCoreDataContainer() {
+		let context = persistentContainer.viewContext
+		
+//		let fetchRequest = NSFetchRequest<Salary>(entityName: "Salary")
+		
+		let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: Salary.fetchRequest())
+		
+		do {
+			try context.execute(batchDeleteRequest)
+		} catch let err {
+			print("Failed to reset core data container", err)
+		}
+	}
 }
 

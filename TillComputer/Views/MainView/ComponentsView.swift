@@ -96,7 +96,8 @@ class ComponentsView: UIView {
 			view.trailingAnchor.constraint(equalTo: trailingAnchor),
 			
 			cpuView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -mainWindowHeight! * 0.015),
-			cpuView.heightAnchor.constraint(equalToConstant: mainWindowHeight! * 0.4),
+//			cpuView.heightAnchor.constraint(equalToConstant: mainWindowHeight! * 0.4),
+			cpuView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.4),
 			cpuView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 			cpuView.widthAnchor.constraint(equalTo: view.widthAnchor),
 			
