@@ -22,6 +22,7 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate, LiveVi
 	let audioSession = AVAudioSession.sharedInstance()
 	
 	var progresBarHeight: CGFloat = 0
+	let buttonSize: CGFloat = 40
 	
 	let windowHeight = UIApplication.shared.keyWindow?.frame.height
 	
@@ -58,6 +59,18 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate, LiveVi
 		return view
 	}()
 	
+	let settingsButton: UIButton = {
+		let button = UIButton(type: UIButton.ButtonType.system)
+		button.translatesAutoresizingMaskIntoConstraints = false
+		button.setImage(UIImage(named: "setting")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate), for: .normal)
+		button.tintColor = .lightGold
+		button.imageEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+		button.backgroundColor = UIColor.darkGray.withAlphaComponent(0.5)
+		return button
+	}()
+	
+	
+	
 	var centerXAnchor: NSLayoutConstraint!
 	var centerYAnchor: NSLayoutConstraint!
 	
@@ -72,6 +85,7 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate, LiveVi
 	
 		navigationBarView.addButton.addTarget(self, action: #selector(addMoney), for: .touchUpInside)
 		navigationBarView.listButton.addTarget(self, action: #selector(openList), for: .touchUpInside)
+		settingsButton.addTarget(self, action: #selector(openSettings), for: .touchUpInside)
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {
@@ -135,6 +149,14 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate, LiveVi
 	@objc func openList() {
 		print("Open List")
 		createListViewControler()
+	}
+	
+	@objc func openSettings() {
+		
+		let settingsViewController = SettingsViewController()
+		let navController = UINavigationController(rootViewController: settingsViewController)
+		present(navController, animated: true, completion: nil)
+		
 	}
 	
 	fileprivate func configureCurrentValue() {
@@ -263,6 +285,7 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate, LiveVi
 		view.addSubview(componentsView)
 		view.addSubview(bottomBarView)
 		view.addSubview(currentMoneyView)
+		view.addSubview(settingsButton)
 		
 		NSLayoutConstraint.activate([
 			
@@ -284,8 +307,17 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate, LiveVi
 			currentMoneyView.topAnchor.constraint(equalTo: progresBarView.topAnchor),
 			currentMoneyView.bottomAnchor.constraint(equalTo: progresBarView.bottomAnchor),
 			currentMoneyView.leadingAnchor.constraint(equalTo: progresBarView.trailingAnchor),
-			currentMoneyView.widthAnchor.constraint(equalToConstant: 40),
+			currentMoneyView.widthAnchor.constraint(equalToConstant: buttonSize),
+			
+			settingsButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
+			settingsButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8),
+			settingsButton.heightAnchor.constraint(equalToConstant: buttonSize + 10),
+			settingsButton.widthAnchor.constraint(equalTo: settingsButton.heightAnchor),
 			])
+		
+		settingsButton.layer.cornerRadius = (buttonSize + 10) / 2
+		
+		
 	}
 	
 	func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {

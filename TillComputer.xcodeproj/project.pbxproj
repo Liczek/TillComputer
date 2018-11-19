@@ -20,6 +20,8 @@
 		DA9831D1218FA55C005A1A18 /* ComponentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9831D0218FA55C005A1A18 /* ComponentsView.swift */; };
 		DAC0688B219C9F0700B311CA /* TillComputerModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DAC06889219C9F0700B311CA /* TillComputerModel.xcdatamodeld */; };
 		DAC06890219CA06A00B311CA /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC0688F219CA06A00B311CA /* CoreDataManager.swift */; };
+		DAF516C521A3412E0035991B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF516C421A3412E0035991B /* SettingsViewController.swift */; };
+		DAF516C821A34FDF0035991B /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF516C721A34FDF0035991B /* SettingsCell.swift */; };
 		DAFB3C9C21937FBB0021CD53 /* cha_ching.wav in Resources */ = {isa = PBXBuildFile; fileRef = DAFB3C9B21937FBB0021CD53 /* cha_ching.wav */; };
 		DAFB3C9E219640300021CD53 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFB3C9D219640300021CD53 /* ListViewController.swift */; };
 		DAFB3CA0219642090021CD53 /* DonationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFB3C9F219642090021CD53 /* DonationCell.swift */; };
@@ -43,6 +45,8 @@
 		DA9831D0218FA55C005A1A18 /* ComponentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsView.swift; sourceTree = "<group>"; };
 		DAC0688A219C9F0700B311CA /* TillComputerModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TillComputerModel.xcdatamodel; sourceTree = "<group>"; };
 		DAC0688F219CA06A00B311CA /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		DAF516C421A3412E0035991B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		DAF516C721A34FDF0035991B /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		DAFB3C9B21937FBB0021CD53 /* cha_ching.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = cha_ching.wav; sourceTree = "<group>"; };
 		DAFB3C9D219640300021CD53 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		DAFB3C9F219642090021CD53 /* DonationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonationCell.swift; sourceTree = "<group>"; };
@@ -101,6 +105,7 @@
 			children = (
 				DAC0688D219C9F3D00B311CA /* MainView */,
 				DAC0688E219C9F4B00B311CA /* List */,
+				DAF516C621A34B9A0035991B /* Settings */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -125,6 +130,15 @@
 				DAFB3C9F219642090021CD53 /* DonationCell.swift */,
 			);
 			path = List;
+			sourceTree = "<group>";
+		};
+		DAF516C621A34B9A0035991B /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				DAF516C421A3412E0035991B /* SettingsViewController.swift */,
+				DAF516C721A34FDF0035991B /* SettingsCell.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,11 +221,13 @@
 				DA9831BD218F1C65005A1A18 /* ComputerProgresController.swift in Sources */,
 				DAFB3CA0219642090021CD53 /* DonationCell.swift in Sources */,
 				DAC0688B219C9F0700B311CA /* TillComputerModel.xcdatamodeld in Sources */,
+				DAF516C521A3412E0035991B /* SettingsViewController.swift in Sources */,
 				DAFB3C9E219640300021CD53 /* ListViewController.swift in Sources */,
 				DA04B28B219244DB0054A69F /* MoneyView.swift in Sources */,
 				DAFB3CA4219652890021CD53 /* Donation.swift in Sources */,
 				DA04B289219236690054A69F /* CurrentMoneyView.swift in Sources */,
 				DAC06890219CA06A00B311CA /* CoreDataManager.swift in Sources */,
+				DAF516C821A34FDF0035991B /* SettingsCell.swift in Sources */,
 				DA9831BB218F1C65005A1A18 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
