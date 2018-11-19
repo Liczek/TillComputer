@@ -11,7 +11,7 @@ import UIKit
 class ComponentsView: UIView {
 	
 	var progresValue: CGFloat = 200
-	let mainWindowHeight = UIApplication.shared.keyWindow?.frame.height
+//	let mainWindowHeight = UIApplication.shared.keyWindow?.frame.height
 	
 	let blurView: UIImageView = {
 		let view = UIImageView()
@@ -73,19 +73,13 @@ class ComponentsView: UIView {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		
-		
-		
 		addSubview(view)
 		view.addSubview(cpuView)
 		view.addSubview(mouseView)
 		view.addSubview(headsetView)
 		
 		view.addSubview(blurView)
-		
-		
-		
 		view.addSubview(progresBordeView)
-		
 		view.addSubview(wowView)
 		
 		NSLayoutConstraint.activate([
@@ -95,21 +89,21 @@ class ComponentsView: UIView {
 			view.leadingAnchor.constraint(equalTo: leadingAnchor),
 			view.trailingAnchor.constraint(equalTo: trailingAnchor),
 			
-			cpuView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -mainWindowHeight! * 0.015),
-//			cpuView.heightAnchor.constraint(equalToConstant: mainWindowHeight! * 0.4),
-			cpuView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.4),
-			cpuView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-			cpuView.widthAnchor.constraint(equalTo: view.widthAnchor),
+			headsetView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+			headsetView.heightAnchor.constraint(equalTo: mouseView.heightAnchor),
+			headsetView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+			headsetView.widthAnchor.constraint(equalTo: view.widthAnchor),
 			
-			mouseView.bottomAnchor.constraint(equalTo: cpuView.topAnchor, constant: -mainWindowHeight! * 0.015),
-			mouseView.heightAnchor.constraint(equalToConstant: mainWindowHeight! * 0.15),
+			mouseView.topAnchor.constraint(equalTo: headsetView.bottomAnchor, constant: 16),
+			mouseView.heightAnchor.constraint(equalTo: headsetView.heightAnchor),
 			mouseView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 			mouseView.widthAnchor.constraint(equalTo: view.widthAnchor),
 			
-			headsetView.bottomAnchor.constraint(equalTo: mouseView.topAnchor, constant: -mainWindowHeight! * 0.015),
-			headsetView.heightAnchor.constraint(equalToConstant: mainWindowHeight! * 0.15),
-			headsetView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-			headsetView.widthAnchor.constraint(equalTo: view.widthAnchor),
+			cpuView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16),
+			cpuView.topAnchor.constraint(equalTo: mouseView.bottomAnchor, constant: 16),
+			cpuView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.4),
+			cpuView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+			cpuView.widthAnchor.constraint(equalTo: view.widthAnchor),
 			
 			blurView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 			blurView.trailingAnchor.constraint(equalTo: view.trailingAnchor),

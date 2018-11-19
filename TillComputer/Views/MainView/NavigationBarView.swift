@@ -63,9 +63,8 @@ class NavigationBarView: UIView {
 		addSubview(addButton)
 		addSubview(listButton)
 		
-		
-		
 		NSLayoutConstraint.activate([
+			
 			bgImageView.topAnchor.constraint(equalTo: topAnchor),
 			bgImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
 			bgImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -84,6 +83,7 @@ class NavigationBarView: UIView {
 			listButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
 			listButton.heightAnchor.constraint(equalToConstant: 50),
 			listButton.widthAnchor.constraint(equalToConstant: 50),
+			
 			])
 	}
 	

@@ -14,7 +14,7 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate, LiveVi
 	
 	
 	let finishValue: CGFloat = 3000
-	var currentValue: CGFloat = 2900
+	var currentValue: CGFloat = 0
 	var percentage: CGFloat = 0
 	
 	var audioPlayer: AVAudioPlayer?
@@ -127,6 +127,7 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate, LiveVi
 					})
 				})
 				self.navigationBarView.addButton.isEnabled = true
+				self.checkForAchivements()
 			})
 		}
 	}
@@ -137,8 +138,6 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate, LiveVi
 	}
 	
 	fileprivate func configureCurrentValue() {
-//		let context = CoreDataManager.shared.persistentContainer.viewContext
-		
 		let salaries = CoreDataManager.shared.fetchSalaries()
 		currentValue = ValueToAdd * CGFloat(salaries.count)
 	}
@@ -163,7 +162,7 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate, LiveVi
 	fileprivate func updateClearViewHeight(addedValue: CGFloat) {
 		var clearViewHeight: CGFloat!
 		
-		progresBarHeight = progresBarView.view.frame.height - 6
+		progresBarHeight = progresBarView.frame.height - 6
 		
 		currentValue += addedValue
 		
@@ -189,7 +188,11 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate, LiveVi
 			self.progresBarView.progresValueLabel.text = "\((Int(self.percentage * 100)))%"
 		})
 		
+		updateCurrentMoneyValues()
 		
+	}
+	
+	fileprivate func checkForAchivements() {
 		if currentValue == finishValue {
 			navigationBarView.addButton.isEnabled = false
 			createAlertController(title: "Gratulacje", message: "Już nie klikaj, tylko szukaj komputer :)", action: "WoW Classic :D")
@@ -207,11 +210,13 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate, LiveVi
 				navigationBarView.addButton.isEnabled = false
 				createAlertController(title: "Komp już jest", message: "Dozbieraj na prO headset i gryzonia", action: "Zbieram, zbieram ;)")
 			}
-			
-			currentMoneyView.currentMoney = Int(currentValue)
-			currentMoneyView.finishMoney = Int(finishValue)
-			currentMoneyView.configureMoneyLabel()
 		}
+	}
+	
+	fileprivate func updateCurrentMoneyValues() {
+		currentMoneyView.currentMoney = Int(currentValue)
+		currentMoneyView.finishMoney = Int(finishValue)
+		currentMoneyView.configureMoneyLabel()
 	}
 	
 	func createAlertController(title: String, message: String, action: String){
@@ -305,12 +310,10 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate, LiveVi
 	fileprivate func playChaChingSound() {
 		
 		do {
-			
 			turnDownBackgroundVolume()
 			audioPlayer = try AVAudioPlayer(contentsOf: url!)
 			audioPlayer?.delegate = self
 			audioPlayer?.play()
-			
 		} catch let err {
 			print(err)
 		}
@@ -322,10 +325,6 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate, LiveVi
 		} catch let err {
 			print("Failed to turn Down Backgrund Volume", err)
 		}
-		
 	}
-	
-
-	
 }
 

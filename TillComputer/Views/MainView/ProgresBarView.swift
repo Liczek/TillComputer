@@ -10,15 +10,8 @@ import UIKit
 
 class ProgresBarView: UIView {
 	
-	var progresBarHeight: CGFloat = 150
 	var progresValue: CGFloat = 51
 	var progresViewShadowBottomAnchor: NSLayoutConstraint!
-	
-	let view: UIView = {
-		let view = UIView()
-		view.translatesAutoresizingMaskIntoConstraints = false
-		return view
-	}()
 	
 	let progresViewShadow: UIImageView = {
 		let view = UIImageView()
@@ -29,6 +22,8 @@ class ProgresBarView: UIView {
 		view.clipsToBounds = true
 		view.backgroundColor = .gold
 		view.alpha = 0.9
+		view.layer.borderWidth = 2
+		view.layer.borderColor = UIColor.veryDarkRed.cgColor
 		return view
 	}()
 	
@@ -54,96 +49,39 @@ class ProgresBarView: UIView {
 		return view
 	}()
 	
-	let rigthVerticalSeparator: UIView = {
-		let view = UIView()
-		view.translatesAutoresizingMaskIntoConstraints = false
-		view.backgroundColor = .veryDarkRed
-		return view
-	}()
-	
-	let leftVerticalSeparator: UIView = {
-		let view = UIView()
-		view.translatesAutoresizingMaskIntoConstraints = false
-		view.backgroundColor = .darkGold
-		return view
-	}()
-	
-	let topSeparator: UIView = {
-		let view = UIView()
-		view.translatesAutoresizingMaskIntoConstraints = false
-		view.backgroundColor = .veryDarkRed
-		return view
-	}()
-	
-	let bottomSeparator: UIView = {
-		let view = UIView()
-		view.translatesAutoresizingMaskIntoConstraints = false
-		view.backgroundColor = .darkGold
-		return view
-	}()
-	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		
-		addSubview(view)
-		view.addSubview(progresViewShadow)
-		view.addSubview(progresView)
-		view.addSubview(rigthVerticalSeparator)
-		view.addSubview(leftVerticalSeparator)
-		view.addSubview(topSeparator)
-		view.addSubview(bottomSeparator)
-		
-		view.addSubview(progresValueLabel)
-		view.addSubview(progresBordeView)
+		addSubview(progresViewShadow)
+		addSubview(progresView)
+		addSubview(progresValueLabel)
+		addSubview(progresBordeView)
 		
 		NSLayoutConstraint.activate([
 			
-			view.topAnchor.constraint(equalTo: topAnchor),
-			view.bottomAnchor.constraint(equalTo: bottomAnchor),
-			view.leadingAnchor.constraint(equalTo: leadingAnchor),
-			view.trailingAnchor.constraint(equalTo: trailingAnchor),
-			
 			progresView.topAnchor.constraint(equalTo: progresViewShadow.bottomAnchor),
-			progresView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-			progresView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-			progresView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+			progresView.bottomAnchor.constraint(equalTo: bottomAnchor),
+			progresView.leadingAnchor.constraint(equalTo: leadingAnchor),
+			progresView.trailingAnchor.constraint(equalTo: trailingAnchor),
+
 			
-			rigthVerticalSeparator.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-			rigthVerticalSeparator.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-			rigthVerticalSeparator.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-			rigthVerticalSeparator.widthAnchor.constraint(equalToConstant: 2),
-			
-			leftVerticalSeparator.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-			leftVerticalSeparator.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-			leftVerticalSeparator.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-			leftVerticalSeparator.widthAnchor.constraint(equalToConstant: 5),
-			
-			topSeparator.topAnchor.constraint(equalTo: topAnchor),
-			topSeparator.heightAnchor.constraint(equalToConstant: 3),
-			topSeparator.leadingAnchor.constraint(equalTo: leftVerticalSeparator.trailingAnchor),
-			topSeparator.trailingAnchor.constraint(equalTo: rigthVerticalSeparator.leadingAnchor),
-			
-			bottomSeparator.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-			bottomSeparator.heightAnchor.constraint(equalToConstant: 3),
-			bottomSeparator.leadingAnchor.constraint(equalTo: leftVerticalSeparator.trailingAnchor),
-			bottomSeparator.trailingAnchor.constraint(equalTo: rigthVerticalSeparator.leadingAnchor),
-			
-			progresViewShadow.topAnchor.constraint(equalTo: topSeparator.bottomAnchor),
-			progresViewShadow.leadingAnchor.constraint(equalTo: leftVerticalSeparator.trailingAnchor),
-			progresViewShadow.trailingAnchor.constraint(equalTo: rigthVerticalSeparator.leadingAnchor),
+			progresViewShadow.topAnchor.constraint(equalTo: topAnchor, constant: 0),
+			progresViewShadow.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
+			progresViewShadow.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
 			
 			progresValueLabel.topAnchor.constraint(equalTo: progresViewShadow.bottomAnchor),
 			progresValueLabel.centerXAnchor.constraint(equalTo: progresViewShadow.centerXAnchor),
 			
-			progresBordeView.leadingAnchor.constraint(equalTo: leftVerticalSeparator.trailingAnchor),
-			progresBordeView.trailingAnchor.constraint(equalTo: rigthVerticalSeparator.leadingAnchor),
+			progresBordeView.leadingAnchor.constraint(equalTo: progresViewShadow.leadingAnchor),
+			progresBordeView.trailingAnchor.constraint(equalTo: progresViewShadow.trailingAnchor),
 			progresBordeView.bottomAnchor.constraint(equalTo: progresViewShadow.bottomAnchor),
-			progresBordeView.heightAnchor.constraint(equalToConstant: 3),
+			progresBordeView.heightAnchor.constraint(equalToConstant: 4),
+			
 			])
 		
 		progresValueLabel.text = "\(progresValue)%"
 		
-		progresViewShadowBottomAnchor = progresViewShadow.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -progresValue)
+		progresViewShadowBottomAnchor = progresViewShadow.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -progresValue)
 		
 		progresViewShadowBottomAnchor.isActive = true
 		
