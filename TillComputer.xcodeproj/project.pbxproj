@@ -22,6 +22,7 @@
 		DAC06890219CA06A00B311CA /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC0688F219CA06A00B311CA /* CoreDataManager.swift */; };
 		DAF516C521A3412E0035991B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF516C421A3412E0035991B /* SettingsViewController.swift */; };
 		DAF516C821A34FDF0035991B /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF516C721A34FDF0035991B /* SettingsCell.swift */; };
+		DAF516CA21A498A70035991B /* SettingsMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF516C921A498A70035991B /* SettingsMenuView.swift */; };
 		DAFB3C9C21937FBB0021CD53 /* cha_ching.wav in Resources */ = {isa = PBXBuildFile; fileRef = DAFB3C9B21937FBB0021CD53 /* cha_ching.wav */; };
 		DAFB3C9E219640300021CD53 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFB3C9D219640300021CD53 /* ListViewController.swift */; };
 		DAFB3CA0219642090021CD53 /* DonationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFB3C9F219642090021CD53 /* DonationCell.swift */; };
@@ -47,6 +48,7 @@
 		DAC0688F219CA06A00B311CA /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		DAF516C421A3412E0035991B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		DAF516C721A34FDF0035991B /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
+		DAF516C921A498A70035991B /* SettingsMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMenuView.swift; sourceTree = "<group>"; };
 		DAFB3C9B21937FBB0021CD53 /* cha_ching.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = cha_ching.wav; sourceTree = "<group>"; };
 		DAFB3C9D219640300021CD53 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		DAFB3C9F219642090021CD53 /* DonationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonationCell.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				DAF516C421A3412E0035991B /* SettingsViewController.swift */,
+				DAF516C921A498A70035991B /* SettingsMenuView.swift */,
 				DAF516C721A34FDF0035991B /* SettingsCell.swift */,
 			);
 			path = Settings;
@@ -218,6 +221,7 @@
 				DA04B287219225E80054A69F /* NavigationBarView.swift in Sources */,
 				DA9831CF218FA0ED005A1A18 /* ProgresBarView.swift in Sources */,
 				DAFB3CA221964A590021CD53 /* Config.swift in Sources */,
+				DAF516CA21A498A70035991B /* SettingsMenuView.swift in Sources */,
 				DA9831BD218F1C65005A1A18 /* ComputerProgresController.swift in Sources */,
 				DAFB3CA0219642090021CD53 /* DonationCell.swift in Sources */,
 				DAC0688B219C9F0700B311CA /* TillComputerModel.xcdatamodeld in Sources */,

@@ -70,7 +70,6 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate, LiveVi
 	}()
 	
 	
-	
 	var centerXAnchor: NSLayoutConstraint!
 	var centerYAnchor: NSLayoutConstraint!
 	
@@ -152,10 +151,17 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate, LiveVi
 	}
 	
 	@objc func openSettings() {
+		let settingsView = SettingsMenuView()
+		settingsView.modalPresentationStyle = .overCurrentContext
+//		settingsView.modalTransitionStyle = .crossDissolve
+		self.present(settingsView, animated: true, completion: nil)
 		
-		let settingsViewController = SettingsViewController()
-		let navController = UINavigationController(rootViewController: settingsViewController)
-		present(navController, animated: true, completion: nil)
+//		present(settingsView, animated: true, completion: nil)
+		
+		
+//		let settingsViewController = SettingsViewController()
+//		let navController = UINavigationController(rootViewController: settingsViewController)
+//		present(navController, animated: true, completion: nil)
 		
 	}
 	
