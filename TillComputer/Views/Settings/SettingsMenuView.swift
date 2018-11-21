@@ -37,15 +37,15 @@ class SettingsMenuView: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-//		view.backgroundColor = .green
+		//		view.backgroundColor = .green
 		
 		
 		view.addSubview(containerView)
 		
 		
-
-//		let test1 = createSettingRow(settingName: "Test1", iconName: "setting", index: 2)
-//		containerView.addSubview(test1)
+		
+		//		let test1 = createSettingRow(settingName: "Test1", iconName: "setting", index: 2)
+		//		containerView.addSubview(test1)
 		
 		NSLayoutConstraint.activate([
 			
@@ -53,35 +53,108 @@ class SettingsMenuView: UIViewController {
 			containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
 			containerView.heightAnchor.constraint(equalToConstant: 300),
 			containerView.widthAnchor.constraint(equalTo: containerView.heightAnchor),
-			
-			
-			
 			])
+	}
+	
+
+	
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
 		
-		settings.enumerated().forEach { (index, setting) in
-			let setting = createSettingRow(settingName: setting.settingName, iconName: setting.iconName, index: index)
-			containerView.addSubview(setting)
-			let settingHeight: CGFloat = 48
+		
+//		settings.enumerated().forEach { (index, setting) in
+			let index = 0
+			let setting = self.createSettingRow(settingName: settings[index].settingName, iconName: settings[index].iconName, index: index)
 			
-			let verticalSpacing = (settingHeight * CGFloat(index)) + CGFloat(8 * (index + 1))
-			NSLayoutConstraint.activate([
+			UIView.animate(withDuration: 0.3, delay: 0, options: .curveLinear, animations: {
 				
-				setting.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -verticalSpacing),
-				setting.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 8),
-				setting.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8),
-				setting.heightAnchor.constraint(equalToConstant: settingHeight),
 				
-				])
-		}
+				self.containerView.addSubview(setting)
+				let settingHeight: CGFloat = 48
+				
+				let verticalSpacing = (settingHeight * CGFloat(index)) + CGFloat(8 * (index))
+				var leadingAnchor: NSLayoutConstraint!
+				NSLayoutConstraint.activate([
+					
+					setting.bottomAnchor.constraint(equalTo: self.containerView.bottomAnchor, constant: 0),
+					setting.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: 8),
+					setting.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: 0),
+					setting.heightAnchor.constraint(equalToConstant: settingHeight),
+					])
+				
+				setting.transform = CGAffineTransform(translationX: 0, y: -verticalSpacing)
+//				self.view.layoutIfNeeded()
+			}, completion: { (true) in
+				
+				let index = 1
+				let setting = self.createSettingRow(settingName: self.settings[index].settingName, iconName: self.settings[index].iconName, index: index)
+				
+				UIView.animate(withDuration: 0.3, delay: 0, options: .curveLinear, animations: {
+					
+					
+					self.containerView.addSubview(setting)
+					let settingHeight: CGFloat = 48
+					
+					let verticalSpacing = (settingHeight * CGFloat(index)) + CGFloat(8 * (index))
+					var leadingAnchor: NSLayoutConstraint!
+					NSLayoutConstraint.activate([
+						
+						setting.bottomAnchor.constraint(equalTo: self.containerView.bottomAnchor, constant: 0),
+						setting.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: 8),
+						setting.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: 0),
+						setting.heightAnchor.constraint(equalToConstant: settingHeight),
+						])
+					
+					setting.transform = CGAffineTransform(translationX: 0, y: -verticalSpacing)
+//					self.view.layoutIfNeeded()
+				}, completion: { (true) in
+					
+					let index = 2
+					let setting = self.createSettingRow(settingName: self.settings[index].settingName, iconName: self.settings[index].iconName, index: index)
+					
+					UIView.animate(withDuration: 0.3, delay: 0, options: .curveLinear, animations: {
+						
+						
+						self.containerView.addSubview(setting)
+						let settingHeight: CGFloat = 48
+						
+						let verticalSpacing = (settingHeight * CGFloat(index)) + CGFloat(8 * (index))
+						var leadingAnchor: NSLayoutConstraint!
+						NSLayoutConstraint.activate([
+							
+							setting.bottomAnchor.constraint(equalTo: self.containerView.bottomAnchor, constant: 0),
+							setting.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: 8),
+							setting.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: 0),
+							setting.heightAnchor.constraint(equalToConstant: settingHeight),
+							])
+						
+						setting.transform = CGAffineTransform(translationX: 0, y: -verticalSpacing)
+						//					self.view.layoutIfNeeded()
+					}, completion: { (true) in
+						
+						
+						
+						
+					})
+					
+					
+				})
+				
+				
+			})
+			
+			
+			
 		
-//		createSettingRow(settingName: "Test1", iconName: "setting", index: 0)
+//		}
+		
 	}
 	
 	func createSettingRow(settingName: String, iconName: String, index: Int) -> UIView {
-		let buttonSize: CGFloat = 40
+		let buttonSize: CGFloat = 50
 		
 		let separatorMultiplier = CGFloat(index)
-		let separator: CGFloat = (separatorMultiplier * 8) + 8
+		let separator: CGFloat = (separatorMultiplier * 8)
 		
 		let container = UIView()
 //		container.backgroundColor = .darkGray

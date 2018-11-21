@@ -70,6 +70,7 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate, LiveVi
 	}()
 	
 	
+	
 	var centerXAnchor: NSLayoutConstraint!
 	var centerYAnchor: NSLayoutConstraint!
 	
@@ -151,9 +152,23 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate, LiveVi
 	}
 	
 	@objc func openSettings() {
+		
+//		let viewWithSettings = ViewWithSettings()
+//		view.addSubview(viewWithSettings)
+//
+//		NSLayoutConstraint.activate([
+//
+//			viewWithSettings.widthAnchor.constraint(equalToConstant: 250),
+//			viewWithSettings.heightAnchor.constraint(equalToConstant: 250),
+//			viewWithSettings.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
+//			viewWithSettings.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8)
+//
+//			])
+//
+//		viewWithSettings.setObjects()
+		
 		let settingsView = SettingsMenuView()
 		settingsView.modalPresentationStyle = .overCurrentContext
-//		settingsView.modalTransitionStyle = .crossDissolve
 		self.present(settingsView, animated: true, completion: nil)
 		
 //		present(settingsView, animated: true, completion: nil)
