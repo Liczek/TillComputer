@@ -25,6 +25,7 @@
 		DAF516CA21A498A70035991B /* SettingsMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF516C921A498A70035991B /* SettingsMenuView.swift */; };
 		DAF516CC21A5EC240035991B /* ViewWithSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF516CB21A5EC240035991B /* ViewWithSettings.swift */; };
 		DAF516CE21A5F08E0035991B /* SettingRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF516CD21A5F08E0035991B /* SettingRowView.swift */; };
+		DAF516D021AC8A8A0035991B /* LabelWithEdgeInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF516CF21AC8A8A0035991B /* LabelWithEdgeInsets.swift */; };
 		DAFB3C9C21937FBB0021CD53 /* cha_ching.wav in Resources */ = {isa = PBXBuildFile; fileRef = DAFB3C9B21937FBB0021CD53 /* cha_ching.wav */; };
 		DAFB3C9E219640300021CD53 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFB3C9D219640300021CD53 /* ListViewController.swift */; };
 		DAFB3CA0219642090021CD53 /* DonationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFB3C9F219642090021CD53 /* DonationCell.swift */; };
@@ -53,6 +54,7 @@
 		DAF516C921A498A70035991B /* SettingsMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMenuView.swift; sourceTree = "<group>"; };
 		DAF516CB21A5EC240035991B /* ViewWithSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewWithSettings.swift; sourceTree = "<group>"; };
 		DAF516CD21A5F08E0035991B /* SettingRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingRowView.swift; sourceTree = "<group>"; };
+		DAF516CF21AC8A8A0035991B /* LabelWithEdgeInsets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelWithEdgeInsets.swift; sourceTree = "<group>"; };
 		DAFB3C9B21937FBB0021CD53 /* cha_ching.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = cha_ching.wav; sourceTree = "<group>"; };
 		DAFB3C9D219640300021CD53 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		DAFB3C9F219642090021CD53 /* DonationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonationCell.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 			children = (
 				DAF516C421A3412E0035991B /* SettingsViewController.swift */,
 				DAF516C921A498A70035991B /* SettingsMenuView.swift */,
+				DAF516CF21AC8A8A0035991B /* LabelWithEdgeInsets.swift */,
 				DAF516CB21A5EC240035991B /* ViewWithSettings.swift */,
 				DAF516CD21A5F08E0035991B /* SettingRowView.swift */,
 				DAF516C721A34FDF0035991B /* SettingsCell.swift */,
@@ -237,6 +240,7 @@
 				DA04B28B219244DB0054A69F /* MoneyView.swift in Sources */,
 				DAF516CE21A5F08E0035991B /* SettingRowView.swift in Sources */,
 				DAFB3CA4219652890021CD53 /* Donation.swift in Sources */,
+				DAF516D021AC8A8A0035991B /* LabelWithEdgeInsets.swift in Sources */,
 				DA04B289219236690054A69F /* CurrentMoneyView.swift in Sources */,
 				DAC06890219CA06A00B311CA /* CoreDataManager.swift in Sources */,
 				DAF516C821A34FDF0035991B /* SettingsCell.swift in Sources */,

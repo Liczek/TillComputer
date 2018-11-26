@@ -20,6 +20,11 @@ class SettingsMenuView: UIViewController {
 	let settingHeight: CGFloat = 48
 	let spacer: CGFloat = 8
 	var verticalSpacing: CGFloat = 0
+	
+	var setting1 = UIView()
+	var setting2 = UIView()
+	var setting3 = UIView()
+	
 //	let settingsButton: UIButton = {
 //		let button = UIButton(type: UIButton.ButtonType.system)
 //		button.translatesAutoresizingMaskIntoConstraints = false
@@ -40,15 +45,8 @@ class SettingsMenuView: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		verticalSpacing = settingHeight + self.spacer
-		//		view.backgroundColor = .green
-		
-		
+	
 		view.addSubview(containerView)
-		
-		
-		
-		//		let test1 = createSettingRow(settingName: "Test1", iconName: "setting", index: 2)
-		//		containerView.addSubview(test1)
 		
 		NSLayoutConstraint.activate([
 			
@@ -57,9 +55,17 @@ class SettingsMenuView: UIViewController {
 			containerView.heightAnchor.constraint(equalToConstant: 300),
 			containerView.widthAnchor.constraint(equalTo: containerView.heightAnchor),
 			])
+		
+		
 	}
 	
-
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		
+		configureSettingsMenu()
+		
+	}
+	
 	fileprivate func configureStartBottomAnchorPosition(index: Int) -> CGFloat {
 		let startBottomAnchorPosition = (self.settingHeight * CGFloat(index - 1)) + CGFloat(Int(self.spacer) * (index - 1))
 		return startBottomAnchorPosition
@@ -75,69 +81,59 @@ class SettingsMenuView: UIViewController {
 			])
 	}
 	
-	override func viewDidAppear(_ animated: Bool) {
-		super.viewDidAppear(animated)
+	fileprivate func configureSettingsMenu() {
 		
-	
-			let index = 0
-			let setting = self.createSettingRow(settingName: settings[index].settingName, iconName: settings[index].iconName, index: index)
+		
+		
+		let index = 0
+		setting1 = self.createSettingRow(settings: settings, index: index)
+		
+		UIView.animate(withDuration: 0.1, delay: 0, options: .curveLinear, animations: {
+			
+			
+			self.containerView.addSubview(self.setting1)
+			self.configureConstraintsFor(settingView: self.setting1, startBottomAnchorConstant: 0)
+			
+			
+		}, completion: { (true) in
+			
+			let index = 1
+			self.setting2 = self.createSettingRow(settings: self.settings, index: index)
 			
 			UIView.animate(withDuration: 0.1, delay: 0, options: .curveLinear, animations: {
 				
 				
-				self.containerView.addSubview(setting)
-				self.configureConstraintsFor(settingView: setting, startBottomAnchorConstant: 0)
+				self.containerView.addSubview(self.setting2)
 				
-
+				
+				self.configureConstraintsFor(settingView: self.setting2, startBottomAnchorConstant: self.configureStartBottomAnchorPosition(index: index))
+				
+				self.setting2.transform = CGAffineTransform(translationX: 0, y: -self.verticalSpacing)
 			}, completion: { (true) in
 				
-				let index = 1
-				let setting = self.createSettingRow(settingName: self.settings[index].settingName, iconName: self.settings[index].iconName, index: index)
+				let index = 2
+				self.setting3 = self.createSettingRow(settings: self.settings, index: index)
 				
 				UIView.animate(withDuration: 0.1, delay: 0, options: .curveLinear, animations: {
 					
 					
-					self.containerView.addSubview(setting)
+					self.containerView.addSubview(self.setting3)
 					
+					self.configureConstraintsFor(settingView: self.setting3, startBottomAnchorConstant: self.configureStartBottomAnchorPosition(index: index))
 					
-					self.configureConstraintsFor(settingView: setting, startBottomAnchorConstant: self.configureStartBottomAnchorPosition(index: index))
+					self.setting3.transform = CGAffineTransform(translationX: 0, y: -self.verticalSpacing)
 					
-					setting.transform = CGAffineTransform(translationX: 0, y: -self.verticalSpacing)
 				}, completion: { (true) in
 					
-					let index = 2
-					let setting = self.createSettingRow(settingName: self.settings[index].settingName, iconName: self.settings[index].iconName, index: index)
 					
-					UIView.animate(withDuration: 0.1, delay: 0, options: .curveLinear, animations: {
-						
-						
-						self.containerView.addSubview(setting)
-						
-						self.configureConstraintsFor(settingView: setting, startBottomAnchorConstant: self.configureStartBottomAnchorPosition(index: index))
-						
-						setting.transform = CGAffineTransform(translationX: 0, y: -self.verticalSpacing)
-		
-					}, completion: { (true) in
-						
-						
-						
-						
-					})
 					
 					
 				})
-				
-				
 			})
-			
-			
-			
-		
-//		}
-		
+		})
 	}
 	
-	func createSettingRow(settingName: String, iconName: String, index: Int) -> UIView {
+	fileprivate func createSettingRow(settings: [Setting], index: Int) -> UIView {
 		let buttonSize: CGFloat = 50
 		
 		let separatorMultiplier = CGFloat(index)
@@ -147,18 +143,29 @@ class SettingsMenuView: UIViewController {
 //		container.backgroundColor = .darkGray
 		container.translatesAutoresizingMaskIntoConstraints = false
 		
-		let settingLabel = UILabel()
+		let settingName = settings[index].settingName
+		
+		let settingLabel = LabelWithEdgeInsets()
 		settingLabel.font = UIFont.systemFont(ofSize: 22, weight: UIFont.Weight.bold)
 		settingLabel.textColor = .veryDarkRed
 		settingLabel.text = settingName
+		settingLabel.verticalPadding = 2
+		
+		settingLabel.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+		settingLabel.layer.cornerRadius = 5
+		settingLabel.clipsToBounds = true
 		settingLabel.translatesAutoresizingMaskIntoConstraints = false
 
+		let iconName = settings[index].iconName
+		
 		let button = UIButton(type: UIButton.ButtonType.system)
 		button.translatesAutoresizingMaskIntoConstraints = false
 		button.setImage(UIImage(named: iconName)?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate), for: .normal)
 		button.tintColor = .lightGold
 		button.imageEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
-//		button.backgroundColor = UIColor.darkGray.withAlphaComponent(0.5)
+		button.backgroundColor = UIColor.darkGray.withAlphaComponent(0.5)
+		button.layer.cornerRadius = 25
+		button.clipsToBounds = true
 		button.translatesAutoresizingMaskIntoConstraints = false
 
 		container.addSubview(settingLabel)
