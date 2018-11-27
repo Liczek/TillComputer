@@ -169,6 +169,7 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate, LiveVi
 		
 		let settingsView = SettingsMenuView()
 		settingsView.modalPresentationStyle = .overCurrentContext
+		settingsView.isMenuOpened = true
 		self.present(settingsView, animated: true, completion: nil)
 		
 //		present(settingsView, animated: true, completion: nil)

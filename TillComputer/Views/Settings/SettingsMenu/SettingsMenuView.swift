@@ -25,19 +25,10 @@ class SettingsMenuView: UIViewController {
 	var setting2 = UIView()
 	var setting3 = UIView()
 	
-//	let settingsButton: UIButton = {
-//		let button = UIButton(type: UIButton.ButtonType.system)
-//		button.translatesAutoresizingMaskIntoConstraints = false
-//		button.setImage(UIImage(named: "setting")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate), for: .normal)
-//		button.tintColor = .lightGold
-//		button.imageEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
-//		button.backgroundColor = UIColor.darkGray.withAlphaComponent(0.5)
-//		return button
-//	}()
+	var isMenuOpened = true
 	
 	let containerView: UIView = {
 		let view = UIView()
-//		view.backgroundColor = .gold
 		view.translatesAutoresizingMaskIntoConstraints = false
 		return view
 	}()
@@ -45,17 +36,21 @@ class SettingsMenuView: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		verticalSpacing = settingHeight + self.spacer
-	
 		view.addSubview(containerView)
 		
 		NSLayoutConstraint.activate([
 			
-			containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8),
-			containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
-			containerView.heightAnchor.constraint(equalToConstant: 300),
-			containerView.widthAnchor.constraint(equalTo: containerView.heightAnchor),
+			containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+			containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+			containerView.topAnchor.constraint(equalTo: view.topAnchor),
+			containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 			])
 		
+		
+	}
+	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
 		
 	}
 	
@@ -63,7 +58,7 @@ class SettingsMenuView: UIViewController {
 		super.viewDidAppear(animated)
 		
 		configureSettingsMenu()
-		
+		configureSettingsViewBGTapGesture()
 	}
 	
 	fileprivate func configureStartBottomAnchorPosition(index: Int) -> CGFloat {
@@ -83,54 +78,61 @@ class SettingsMenuView: UIViewController {
 	
 	fileprivate func configureSettingsMenu() {
 		
-		
-		
-		let index = 0
-		setting1 = self.createSettingRow(settings: settings, index: index)
-		
-		UIView.animate(withDuration: 0.1, delay: 0, options: .curveLinear, animations: {
+		if isMenuOpened == false {
 			
+			closeAndDismissSettingsMenu()
 			
-			self.containerView.addSubview(self.setting1)
-			self.configureConstraintsFor(settingView: self.setting1, startBottomAnchorConstant: 0)
+		} else {
 			
-			
-		}, completion: { (true) in
-			
-			let index = 1
-			self.setting2 = self.createSettingRow(settings: self.settings, index: index)
+			let index = 0
+			setting1 = self.createSettingRow(settings: settings, index: index)
 			
 			UIView.animate(withDuration: 0.1, delay: 0, options: .curveLinear, animations: {
 				
 				
-				self.containerView.addSubview(self.setting2)
+				self.containerView.addSubview(self.setting1)
+				self.configureConstraintsFor(settingView: self.setting1, startBottomAnchorConstant: 0)
+				self.setActionForSettingButton(index: index, button: self.setting1)
 				
-				
-				self.configureConstraintsFor(settingView: self.setting2, startBottomAnchorConstant: self.configureStartBottomAnchorPosition(index: index))
-				
-				self.setting2.transform = CGAffineTransform(translationX: 0, y: -self.verticalSpacing)
 			}, completion: { (true) in
 				
-				let index = 2
-				self.setting3 = self.createSettingRow(settings: self.settings, index: index)
+				let index = 1
+				self.setting2 = self.createSettingRow(settings: self.settings, index: index)
 				
 				UIView.animate(withDuration: 0.1, delay: 0, options: .curveLinear, animations: {
 					
 					
-					self.containerView.addSubview(self.setting3)
+					self.containerView.addSubview(self.setting2)
 					
-					self.configureConstraintsFor(settingView: self.setting3, startBottomAnchorConstant: self.configureStartBottomAnchorPosition(index: index))
 					
-					self.setting3.transform = CGAffineTransform(translationX: 0, y: -self.verticalSpacing)
+					self.configureConstraintsFor(settingView: self.setting2, startBottomAnchorConstant: self.configureStartBottomAnchorPosition(index: index))
 					
+					self.setting2.transform = CGAffineTransform(translationX: 0, y: -self.verticalSpacing)
 				}, completion: { (true) in
 					
+					let index = 2
+					self.setting3 = self.createSettingRow(settings: self.settings, index: index)
 					
-					
-					
+					UIView.animate(withDuration: 0.1, delay: 0, options: .curveLinear, animations: {
+						
+						
+						self.containerView.addSubview(self.setting3)
+						
+						self.configureConstraintsFor(settingView: self.setting3, startBottomAnchorConstant: self.configureStartBottomAnchorPosition(index: index))
+						
+						self.setting3.transform = CGAffineTransform(translationX: 0, y: -self.verticalSpacing)
+						
+					}, completion: { (true) in
+						
+						
+						
+						
+					})
 				})
 			})
-		})
+			
+			isMenuOpened = false
+		}
 	}
 	
 	fileprivate func createSettingRow(settings: [Setting], index: Int) -> UIView {
@@ -150,8 +152,7 @@ class SettingsMenuView: UIViewController {
 		settingLabel.textColor = .veryDarkRed
 		settingLabel.text = settingName
 		settingLabel.verticalPadding = 2
-		
-		settingLabel.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+		settingLabel.backgroundColor = UIColor.darkGray.withAlphaComponent(0.5)
 		settingLabel.layer.cornerRadius = 5
 		settingLabel.clipsToBounds = true
 		settingLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -186,4 +187,66 @@ class SettingsMenuView: UIViewController {
 		return container
 	}
 	
+	fileprivate func configureSettingsViewBGTapGesture() {
+		let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleBGTap))
+		containerView.addGestureRecognizer(tapGesture)
+	}
+	
+	fileprivate func closeAndDismissSettingsMenu() {
+		
+		verticalSpacing = 48
+		
+		UIView.animate(withDuration: 0.1, delay: 0, options: .curveLinear, animations: {
+			self.setting3.transform = CGAffineTransform(translationX: 0, y: self.verticalSpacing)
+			
+		}) { (true) in
+			
+			UIView.animate(withDuration: 0.1, delay: 0, options: .curveLinear, animations: {
+				self.setting2.transform = CGAffineTransform(scaleX: 0, y: self.verticalSpacing)
+			}) { (true) in
+				
+				UIView.animate(withDuration: 0.1, delay: 0, options: .curveLinear, animations: {
+					self.setting1.transform = CGAffineTransform(scaleX: 0, y: self.verticalSpacing)
+				}) { (true) in
+					
+					self.dismiss(animated: true, completion: nil)
+					print("removed")
+				}
+			}
+		}
+		
+	}
+	
+	fileprivate func setActionForSettingButton(index: Int, button: UIView) {
+		
+		if index == 0 {
+			let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleAboutSetting))
+			button.addGestureRecognizer(tapGesture)
+		} else if index == 1 {
+			let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleImagesSetting))
+			button.addGestureRecognizer(tapGesture)
+		} else if index == 2 {
+			let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleValuesSetting))
+			button.addGestureRecognizer(tapGesture)
+		}
+	}
+	
+	@objc func handleBGTap() {
+		closeAndDismissSettingsMenu()
+	}
+	
+	@objc func handleAboutSetting() {
+		let aboutVC = AboutViewController()
+		let navController = UINavigationController(rootViewController: aboutVC)
+		
+		present(navController, animated: true, completion: nil)
+	}
+	
+	@objc func handleValuesSetting() {
+		
+	}
+	
+	@objc func handleImagesSetting() {
+		
+	}
 }
