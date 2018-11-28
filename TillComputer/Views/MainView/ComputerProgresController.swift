@@ -9,7 +9,9 @@
 import UIKit
 import AVFoundation
 
-class ComputerProgresController: UIViewController, AVAudioPlayerDelegate, LiveViewControllerDelegate {
+class ComputerProgresController: UIViewController, AVAudioPlayerDelegate, LiveViewControllerDelegate, SettingsMenuViewDelegate {
+	
+	
 	
 	
 	
@@ -88,6 +90,11 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate, LiveVi
 		settingsButton.addTarget(self, action: #selector(openSettings), for: .touchUpInside)
 	}
 	
+//	override func viewWillAppear(_ animated: Bool) {
+//		super.viewWillAppear(animated)
+//		settingsButton.isHidden = false
+//	}
+	
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		
@@ -152,33 +159,17 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate, LiveVi
 	}
 	
 	@objc func openSettings() {
-		
-//		let viewWithSettings = ViewWithSettings()
-//		view.addSubview(viewWithSettings)
-//
-//		NSLayoutConstraint.activate([
-//
-//			viewWithSettings.widthAnchor.constraint(equalToConstant: 250),
-//			viewWithSettings.heightAnchor.constraint(equalToConstant: 250),
-//			viewWithSettings.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
-//			viewWithSettings.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8)
-//
-//			])
-//
-//		viewWithSettings.setObjects()
-		
 		let settingsView = SettingsMenuView()
 		settingsView.modalPresentationStyle = .overCurrentContext
 		settingsView.isMenuOpened = true
-		self.present(settingsView, animated: true, completion: nil)
-		
-//		present(settingsView, animated: true, completion: nil)
-		
-		
-//		let settingsViewController = SettingsViewController()
-//		let navController = UINavigationController(rootViewController: settingsViewController)
-//		present(navController, animated: true, completion: nil)
-		
+		settingsView.delegate = self
+		self.present(settingsView, animated: true) {
+			self.settingsButton.isHidden = true
+		}
+	}
+	
+	func didCloseSettingsView() {
+		settingsButton.isHidden = false
 	}
 	
 	fileprivate func configureCurrentValue() {

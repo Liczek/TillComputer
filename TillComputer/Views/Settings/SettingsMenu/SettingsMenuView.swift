@@ -13,9 +13,13 @@ struct Setting {
 	let iconName: String
 }
 
+protocol SettingsMenuViewDelegate {
+	func didCloseSettingsView()
+}
+
 class SettingsMenuView: UIViewController {
 	
-	let settings = [Setting(settingName: "Test1", iconName: "setting"), Setting(settingName: "Test2", iconName: "setting"), Setting(settingName: "Test3", iconName: "setting"), Setting(settingName: "Test4", iconName: "setting"), Setting(settingName: "Test5", iconName: "setting")]
+	let settings = [Setting(settingName: "About", iconName: "about"), Setting(settingName: "Images", iconName: "no_image"), Setting(settingName: "Values", iconName: "values"), Setting(settingName: "Test4", iconName: "setting"), Setting(settingName: "Test5", iconName: "setting")]
 	
 	let settingHeight: CGFloat = 48
 	let spacer: CGFloat = 8
@@ -32,6 +36,8 @@ class SettingsMenuView: UIViewController {
 		view.translatesAutoresizingMaskIntoConstraints = false
 		return view
 	}()
+	
+	var delegate: SettingsMenuViewDelegate?
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -62,7 +68,7 @@ class SettingsMenuView: UIViewController {
 	}
 	
 	fileprivate func configureStartBottomAnchorPosition(index: Int) -> CGFloat {
-		let startBottomAnchorPosition = (self.settingHeight * CGFloat(index - 1)) + CGFloat(Int(self.spacer) * (index - 1))
+		let startBottomAnchorPosition = (self.settingHeight * CGFloat(index - 1)) + CGFloat(Int(self.spacer) * (index - 1) + 8)
 		return startBottomAnchorPosition
 	}
 	
@@ -71,7 +77,7 @@ class SettingsMenuView: UIViewController {
 			
 			settingView.bottomAnchor.constraint(equalTo: self.containerView.bottomAnchor, constant: -startBottomAnchorConstant),
 			settingView.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: self.spacer),
-			settingView.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: 0),
+			settingView.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -self.spacer),
 			settingView.heightAnchor.constraint(equalToConstant: self.settingHeight),
 			])
 	}
@@ -85,39 +91,37 @@ class SettingsMenuView: UIViewController {
 		} else {
 			
 			let index = 0
-			setting1 = self.createSettingRow(settings: settings, index: index)
+			setting1 = self.createSettingRow(settings: settings, index: index, selector: #selector(self.handleAboutSetting))
 			
 			UIView.animate(withDuration: 0.1, delay: 0, options: .curveLinear, animations: {
 				
 				
 				self.containerView.addSubview(self.setting1)
-				self.configureConstraintsFor(settingView: self.setting1, startBottomAnchorConstant: 0)
-				self.setActionForSettingButton(index: index, button: self.setting1)
+				self.setActionForSettingButton(index: index, container: self.setting1)
+				self.configureConstraintsFor(settingView: self.setting1, startBottomAnchorConstant: self.spacer)
+				
 				
 			}, completion: { (true) in
 				
 				let index = 1
-				self.setting2 = self.createSettingRow(settings: self.settings, index: index)
+				self.setting2 = self.createSettingRow(settings: self.settings, index: index, selector: #selector(self.handleImagesSetting))
 				
 				UIView.animate(withDuration: 0.1, delay: 0, options: .curveLinear, animations: {
 					
-					
 					self.containerView.addSubview(self.setting2)
-					
-					
+					self.setActionForSettingButton(index: index, container: self.setting2)
 					self.configureConstraintsFor(settingView: self.setting2, startBottomAnchorConstant: self.configureStartBottomAnchorPosition(index: index))
 					
 					self.setting2.transform = CGAffineTransform(translationX: 0, y: -self.verticalSpacing)
 				}, completion: { (true) in
 					
 					let index = 2
-					self.setting3 = self.createSettingRow(settings: self.settings, index: index)
+					self.setting3 = self.createSettingRow(settings: self.settings, index: index, selector: #selector(self.handleValuesSetting))
 					
 					UIView.animate(withDuration: 0.1, delay: 0, options: .curveLinear, animations: {
 						
-						
 						self.containerView.addSubview(self.setting3)
-						
+						self.setActionForSettingButton(index: index, container: self.setting3)
 						self.configureConstraintsFor(settingView: self.setting3, startBottomAnchorConstant: self.configureStartBottomAnchorPosition(index: index))
 						
 						self.setting3.transform = CGAffineTransform(translationX: 0, y: -self.verticalSpacing)
@@ -135,7 +139,7 @@ class SettingsMenuView: UIViewController {
 		}
 	}
 	
-	fileprivate func createSettingRow(settings: [Setting], index: Int) -> UIView {
+	fileprivate func createSettingRow(settings: [Setting], index: Int, selector: Selector) -> UIView {
 		let buttonSize: CGFloat = 50
 		
 		let separatorMultiplier = CGFloat(index)
@@ -168,6 +172,7 @@ class SettingsMenuView: UIViewController {
 		button.layer.cornerRadius = 25
 		button.clipsToBounds = true
 		button.translatesAutoresizingMaskIntoConstraints = false
+		button.addTarget(self, action: selector, for: UIControl.Event.touchUpInside)
 
 		container.addSubview(settingLabel)
 		container.addSubview(button)
@@ -196,38 +201,39 @@ class SettingsMenuView: UIViewController {
 		
 		verticalSpacing = 48
 		
-		UIView.animate(withDuration: 0.1, delay: 0, options: .curveLinear, animations: {
-			self.setting3.transform = CGAffineTransform(translationX: 0, y: self.verticalSpacing)
-			
+		UIView.animate(withDuration: 0.15, delay: 0, options: .curveLinear, animations: {
+//			self.setting3.transform = CGAffineTransform(translationX: 0, y: self.verticalSpacing)
+			self.setting3.transform = .identity
 		}) { (true) in
-			
-			UIView.animate(withDuration: 0.1, delay: 0, options: .curveLinear, animations: {
-				self.setting2.transform = CGAffineTransform(scaleX: 0, y: self.verticalSpacing)
+			self.setting3.isHidden = true
+			UIView.animate(withDuration: 0.15, delay: 0, options: .curveLinear, animations: {
+//				self.setting2.transform = CGAffineTransform(scaleX: 0, y: self.verticalSpacing)
+				self.setting2.transform = .identity
 			}) { (true) in
-				
-				UIView.animate(withDuration: 0.1, delay: 0, options: .curveLinear, animations: {
-					self.setting1.transform = CGAffineTransform(scaleX: 0, y: self.verticalSpacing)
+				self.setting2.isHidden = true
+				UIView.animate(withDuration: 0.15, delay: 0, options: .curveLinear, animations: {
+//					self.setting1.transform = CGAffineTransform(scaleX: 0, y: self.verticalSpacing)
+//					self.setting1.transform = .identity
 				}) { (true) in
-					
+					self.setting1.isHidden = true
+					self.delegate?.didCloseSettingsView()
 					self.dismiss(animated: true, completion: nil)
-					print("removed")
 				}
 			}
 		}
-		
 	}
 	
-	fileprivate func setActionForSettingButton(index: Int, button: UIView) {
+	fileprivate func setActionForSettingButton(index: Int, container: UIView) {
 		
 		if index == 0 {
 			let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleAboutSetting))
-			button.addGestureRecognizer(tapGesture)
+			container.addGestureRecognizer(tapGesture)
 		} else if index == 1 {
 			let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleImagesSetting))
-			button.addGestureRecognizer(tapGesture)
+			container.addGestureRecognizer(tapGesture)
 		} else if index == 2 {
 			let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleValuesSetting))
-			button.addGestureRecognizer(tapGesture)
+			container.addGestureRecognizer(tapGesture)
 		}
 	}
 	
@@ -238,15 +244,24 @@ class SettingsMenuView: UIViewController {
 	@objc func handleAboutSetting() {
 		let aboutVC = AboutViewController()
 		let navController = UINavigationController(rootViewController: aboutVC)
-		
-		present(navController, animated: true, completion: nil)
+		self.delegate?.didCloseSettingsView()
+		view.isHidden = true
+		self.present(navController, animated: true, completion: nil)
 	}
 	
 	@objc func handleValuesSetting() {
-		
+		let valuesVC = ValuesViewController()
+		let navController = UINavigationController(rootViewController: valuesVC)
+		self.delegate?.didCloseSettingsView()
+		view.isHidden = true
+		self.present(navController, animated: true, completion: nil)
 	}
 	
 	@objc func handleImagesSetting() {
-		
+		let imagesVC = ImagesViewController()
+		let navController = UINavigationController(rootViewController: imagesVC)
+		self.delegate?.didCloseSettingsView()
+		view.isHidden = true
+		self.present(navController, animated: true, completion: nil)
 	}
 }
