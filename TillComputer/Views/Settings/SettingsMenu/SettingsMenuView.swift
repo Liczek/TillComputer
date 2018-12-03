@@ -19,7 +19,7 @@ protocol SettingsMenuViewDelegate {
 
 class SettingsMenuView: UIViewController {
 	
-	let settings = [Setting(settingName: "About", iconName: "about"), Setting(settingName: "Images", iconName: "no_image"), Setting(settingName: "Values", iconName: "values"), Setting(settingName: "Test4", iconName: "setting"), Setting(settingName: "Test5", iconName: "setting")]
+	let settings = [Setting(settingName: "About", iconName: "about"), Setting(settingName: "Images", iconName: "no_image2"), Setting(settingName: "Values", iconName: "values"), Setting(settingName: "Test4", iconName: "setting"), Setting(settingName: "Test5", iconName: "setting")]
 	
 	let settingHeight: CGFloat = 48
 	let spacer: CGFloat = 8
@@ -153,7 +153,7 @@ class SettingsMenuView: UIViewController {
 		
 		let settingLabel = LabelWithEdgeInsets()
 		settingLabel.font = UIFont.systemFont(ofSize: 22, weight: UIFont.Weight.bold)
-		settingLabel.textColor = .veryDarkRed
+		settingLabel.textColor = .lightGold
 		settingLabel.text = settingName
 		settingLabel.verticalPadding = 2
 		settingLabel.backgroundColor = UIColor.darkGray.withAlphaComponent(0.5)
@@ -173,7 +173,7 @@ class SettingsMenuView: UIViewController {
 		button.clipsToBounds = true
 		button.translatesAutoresizingMaskIntoConstraints = false
 		button.addTarget(self, action: selector, for: UIControl.Event.touchUpInside)
-
+		
 		container.addSubview(settingLabel)
 		container.addSubview(button)
 
@@ -188,7 +188,7 @@ class SettingsMenuView: UIViewController {
 			settingLabel.centerYAnchor.constraint(equalTo: container.centerYAnchor),
 
 			])
-		
+
 		return container
 	}
 	

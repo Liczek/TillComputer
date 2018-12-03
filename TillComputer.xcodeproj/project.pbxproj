@@ -30,6 +30,7 @@
 		DAF9E1A821ADE51900D28C3D /* SettingItemsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF9E1A721ADE51900D28C3D /* SettingItemsVC.swift */; };
 		DAF9E1AD21AF136700D28C3D /* ImagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF9E1AC21AF136700D28C3D /* ImagesViewController.swift */; };
 		DAF9E1AF21AF13B600D28C3D /* ValuesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF9E1AE21AF13B600D28C3D /* ValuesViewController.swift */; };
+		DAF9E1B121B5AA5400D28C3D /* AboutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF9E1B021B5AA5400D28C3D /* AboutCell.swift */; };
 		DAFB3C9C21937FBB0021CD53 /* cha_ching.wav in Resources */ = {isa = PBXBuildFile; fileRef = DAFB3C9B21937FBB0021CD53 /* cha_ching.wav */; };
 		DAFB3C9E219640300021CD53 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFB3C9D219640300021CD53 /* ListViewController.swift */; };
 		DAFB3CA0219642090021CD53 /* DonationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFB3C9F219642090021CD53 /* DonationCell.swift */; };
@@ -63,6 +64,7 @@
 		DAF9E1A721ADE51900D28C3D /* SettingItemsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingItemsVC.swift; sourceTree = "<group>"; };
 		DAF9E1AC21AF136700D28C3D /* ImagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesViewController.swift; sourceTree = "<group>"; };
 		DAF9E1AE21AF13B600D28C3D /* ValuesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValuesViewController.swift; sourceTree = "<group>"; };
+		DAF9E1B021B5AA5400D28C3D /* AboutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutCell.swift; sourceTree = "<group>"; };
 		DAFB3C9B21937FBB0021CD53 /* cha_ching.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = cha_ching.wav; sourceTree = "<group>"; };
 		DAFB3C9D219640300021CD53 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		DAFB3C9F219642090021CD53 /* DonationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonationCell.swift; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				DAF9E1A521ADE1B300D28C3D /* AboutViewController.swift */,
+				DAF9E1B021B5AA5400D28C3D /* AboutCell.swift */,
 				DAF9E1AC21AF136700D28C3D /* ImagesViewController.swift */,
 				DAF9E1AE21AF13B600D28C3D /* ValuesViewController.swift */,
 			);
@@ -273,6 +276,7 @@
 				DAFB3CA0219642090021CD53 /* DonationCell.swift in Sources */,
 				DAC0688B219C9F0700B311CA /* TillComputerModel.xcdatamodeld in Sources */,
 				DAF516C521A3412E0035991B /* SettingsViewController.swift in Sources */,
+				DAF9E1B121B5AA5400D28C3D /* AboutCell.swift in Sources */,
 				DAFB3C9E219640300021CD53 /* ListViewController.swift in Sources */,
 				DA04B28B219244DB0054A69F /* MoneyView.swift in Sources */,
 				DAF516CE21A5F08E0035991B /* SettingRowView.swift in Sources */,
