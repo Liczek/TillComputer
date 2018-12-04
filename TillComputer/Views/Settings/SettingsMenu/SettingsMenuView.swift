@@ -146,7 +146,7 @@ class SettingsMenuView: UIViewController {
 		let separator: CGFloat = (separatorMultiplier * 8)
 		
 		let container = UIView()
-//		container.backgroundColor = .darkGray
+		container.backgroundColor = .yellow
 		container.translatesAutoresizingMaskIntoConstraints = false
 		
 		let settingName = settings[index].settingName
@@ -217,7 +217,7 @@ class SettingsMenuView: UIViewController {
 				}) { (true) in
 					self.setting1.isHidden = true
 					self.delegate?.didCloseSettingsView()
-					self.dismiss(animated: true, completion: nil)
+					self.dismiss(animated: false, completion: nil)
 				}
 			}
 		}

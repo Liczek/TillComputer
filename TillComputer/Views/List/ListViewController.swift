@@ -28,6 +28,13 @@ class ListViewController: UITableViewController {
 		return view
 	}()
 	
+	let button: UIButton = {
+		let btn = UIButton(type: UIButton.ButtonType.system)
+		btn.translatesAutoresizingMaskIntoConstraints = false
+		btn.setImage(UIImage(named: "arrow back")?.withRenderingMode(.alwaysTemplate), for: .normal)
+		return btn
+	}()
+	
 	var delegate: LiveViewControllerDelegate?
 	
 	override func viewDidLoad() {
@@ -43,8 +50,17 @@ class ListViewController: UITableViewController {
 		navigationController?.navigationBar.barTintColor = .veryDarkRed
 		navigationController?.navigationBar.isTranslucent = false
 		navigationController?.navigationBar.tintColor = .black
-		
-		navigationItem.leftBarButtonItem = UIBarButtonItem(title: "<< Back", style: .plain, target: self, action: #selector(handleBackButton))
+				
+		navigationController?.navigationBar.addSubview(button)
+		button.addTarget(self, action: #selector(handleBackButton), for: .touchUpInside)
+		NSLayoutConstraint.activate([
+			
+			button.leadingAnchor.constraint(equalTo: (navigationController?.navigationBar.leadingAnchor)!, constant: 8),
+			button.heightAnchor.constraint(equalToConstant: 40),
+			button.widthAnchor.constraint(equalToConstant: 40),
+			button.topAnchor.constraint(equalTo: (navigationController?.navigationBar.topAnchor)!, constant: 8)
+			
+			])
 		
 		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.trash, target: self, action: #selector(presentResetSalariesAlertController))
 	}
