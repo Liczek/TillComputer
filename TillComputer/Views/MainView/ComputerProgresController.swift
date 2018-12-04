@@ -322,8 +322,8 @@ class ComputerProgresController: UIViewController, AVAudioPlayerDelegate, LiveVi
 			currentMoneyView.leadingAnchor.constraint(equalTo: progresBarView.trailingAnchor),
 			currentMoneyView.widthAnchor.constraint(equalToConstant: buttonSize),
 			
-			settingsButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
-			settingsButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8),
+			settingsButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
+			settingsButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8),
 			settingsButton.heightAnchor.constraint(equalToConstant: buttonSize + 10),
 			settingsButton.widthAnchor.constraint(equalTo: settingsButton.heightAnchor),
 			])

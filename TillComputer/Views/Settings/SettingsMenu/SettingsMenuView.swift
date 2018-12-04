@@ -46,7 +46,7 @@ class SettingsMenuView: UIViewController {
 		
 		NSLayoutConstraint.activate([
 			
-			containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+			containerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
 			containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 			containerView.topAnchor.constraint(equalTo: view.topAnchor),
 			containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
