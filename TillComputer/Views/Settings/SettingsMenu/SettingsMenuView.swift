@@ -97,7 +97,7 @@ class SettingsMenuView: UIViewController {
 				
 				
 				self.containerView.addSubview(self.setting1)
-				self.setActionForSettingButton(index: index, container: self.setting1)
+//				self.setActionForSettingButton(index: index, container: self.setting1)
 				self.configureConstraintsFor(settingView: self.setting1, startBottomAnchorConstant: self.spacer)
 				
 				
@@ -109,7 +109,7 @@ class SettingsMenuView: UIViewController {
 				UIView.animate(withDuration: 0.1, delay: 0, options: .curveLinear, animations: {
 					
 					self.containerView.addSubview(self.setting2)
-					self.setActionForSettingButton(index: index, container: self.setting2)
+//					self.setActionForSettingButton(index: index, container: self.setting2)
 					self.configureConstraintsFor(settingView: self.setting2, startBottomAnchorConstant: self.configureStartBottomAnchorPosition(index: index))
 					
 					self.setting2.transform = CGAffineTransform(translationX: 0, y: -self.verticalSpacing)
@@ -121,7 +121,7 @@ class SettingsMenuView: UIViewController {
 					UIView.animate(withDuration: 0.1, delay: 0, options: .curveLinear, animations: {
 						
 						self.containerView.addSubview(self.setting3)
-						self.setActionForSettingButton(index: index, container: self.setting3)
+//						self.setActionForSettingButton(index: index, container: self.setting3)
 						self.configureConstraintsFor(settingView: self.setting3, startBottomAnchorConstant: self.configureStartBottomAnchorPosition(index: index))
 						
 						self.setting3.transform = CGAffineTransform(translationX: 0, y: -self.verticalSpacing)
@@ -146,7 +146,6 @@ class SettingsMenuView: UIViewController {
 		let separator: CGFloat = (separatorMultiplier * 8)
 		
 		let container = UIView()
-		container.backgroundColor = .yellow
 		container.translatesAutoresizingMaskIntoConstraints = false
 		
 		let settingName = settings[index].settingName
@@ -160,6 +159,7 @@ class SettingsMenuView: UIViewController {
 		settingLabel.layer.cornerRadius = 5
 		settingLabel.clipsToBounds = true
 		settingLabel.translatesAutoresizingMaskIntoConstraints = false
+		settingLabel.isUserInteractionEnabled = true
 
 		let iconName = settings[index].iconName
 		
@@ -189,6 +189,8 @@ class SettingsMenuView: UIViewController {
 
 			])
 
+		setActionForItem(index: index, item: settingLabel)
+		
 		return container
 	}
 	
@@ -223,19 +225,33 @@ class SettingsMenuView: UIViewController {
 		}
 	}
 	
-	fileprivate func setActionForSettingButton(index: Int, container: UIView) {
+	fileprivate func setActionForItem(index: Int, item: UIView) {
 		
 		if index == 0 {
 			let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleAboutSetting))
-			container.addGestureRecognizer(tapGesture)
+			item.addGestureRecognizer(tapGesture)
 		} else if index == 1 {
 			let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleImagesSetting))
-			container.addGestureRecognizer(tapGesture)
+			item.addGestureRecognizer(tapGesture)
 		} else if index == 2 {
 			let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleValuesSetting))
-			container.addGestureRecognizer(tapGesture)
+			item.addGestureRecognizer(tapGesture)
 		}
 	}
+	
+//	fileprivate func setActionForSettingButton(index: Int, container: UIView) {
+//
+//		if index == 0 {
+//			let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleAboutSetting))
+//			container.addGestureRecognizer(tapGesture)
+//		} else if index == 1 {
+//			let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleImagesSetting))
+//			container.addGestureRecognizer(tapGesture)
+//		} else if index == 2 {
+//			let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleValuesSetting))
+//			container.addGestureRecognizer(tapGesture)
+//		}
+//	}
 	
 	@objc func handleBGTap() {
 		closeAndDismissSettingsMenu()
