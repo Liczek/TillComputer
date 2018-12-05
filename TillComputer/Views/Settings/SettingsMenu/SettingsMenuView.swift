@@ -274,7 +274,7 @@ class SettingsMenuView: UIViewController {
 	}
 	
 	@objc func handleImagesSetting() {
-		let imagesVC = ImagesViewController()
+		let imagesVC = ObjectViewController()
 		let navController = UINavigationController(rootViewController: imagesVC)
 		self.delegate?.didCloseSettingsView()
 		view.isHidden = true

@@ -41,7 +41,7 @@ class SettingItemsVC: UIViewController {
 			button.leadingAnchor.constraint(equalTo: (navigationController?.navigationBar.leadingAnchor)!, constant: 8),
 			button.heightAnchor.constraint(equalToConstant: 40),
 			button.widthAnchor.constraint(equalToConstant: 40),
-			button.topAnchor.constraint(equalTo: (navigationController?.navigationBar.topAnchor)!, constant: 8)
+			button.topAnchor.constraint(equalTo: (navigationController?.navigationBar.topAnchor)!, constant: 0)
 			
 			])
 	}
