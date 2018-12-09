@@ -8,10 +8,15 @@
 
 import UIKit
 
-class ObjectViewController: SettingItemsVC, UITableViewDelegate, UITableViewDataSource {
+struct Object {
+	let value: CGFloat
+	let image: UIImage
+}
+
+class ObjectViewController: SettingItemsVC, UITableViewDelegate, UITableViewDataSource, NewObjectCreationViewDelegate {
 	
 	
-	var objects = [String]()
+	var objects = [Object]()
 	
 	let objectCellID = "objectCellID"
 	
@@ -51,6 +56,9 @@ class ObjectViewController: SettingItemsVC, UITableViewDelegate, UITableViewData
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell =  tableView.dequeueReusableCell(withIdentifier: objectCellID, for: indexPath) as! ObjectCell
+		let object = objects[indexPath.row]
+		cell.objectImage.image = object.image
+		cell.valueLabel.text = String("\(object.value)")
 		return cell
 	}
 	
@@ -71,6 +79,7 @@ class ObjectViewController: SettingItemsVC, UITableViewDelegate, UITableViewData
 	@objc func addNewObject() {
 		let newObjectCreatorVC = NewObjectCreationView()
 		let navController = UINavigationController(rootViewController: newObjectCreatorVC)
+		newObjectCreatorVC.delegate = self
 		present(navController, animated: true, completion: nil)
 	}
 	
@@ -92,11 +101,17 @@ class ObjectViewController: SettingItemsVC, UITableViewDelegate, UITableViewData
 		return [editAction, deleteAction]
 	}
 
-	func didAddNewObject() {
-		let row = objects.count
-		objects.append("obj\(objects.count + 1)")
-		let index = IndexPath(row: row, section: 0)
-		tableView.insertRows(at: [index], with: UITableView.RowAnimation.middle)
+//	func didAddNewObject() {
+//		let row = objects.count
+//		objects.append("obj\(objects.count + 1)")
+//		let index = IndexPath(row: row, section: 0)
+//		tableView.insertRows(at: [index], with: UITableView.RowAnimation.middle)
+//	}
+	
+	func didCreateNewObject(value: CGFloat, image: UIImage) {
+		let newObject = Object(value: value, image: image)
+		objects.append(newObject)
+		tableView.reloadData()
 	}
 	
 }

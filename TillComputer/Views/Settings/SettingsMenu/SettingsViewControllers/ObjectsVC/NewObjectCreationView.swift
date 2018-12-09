@@ -8,7 +8,13 @@
 
 import UIKit
 
+protocol NewObjectCreationViewDelegate {
+	func didCreateNewObject(value: CGFloat, image: UIImage)
+}
+
 class NewObjectCreationView: SettingItemsVC, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+	
+	var delegate: NewObjectCreationViewDelegate?
 	
 	let containerView: UIView = {
 		let view = UIView()
@@ -92,6 +98,7 @@ class NewObjectCreationView: SettingItemsVC, UITextFieldDelegate, UIImagePickerC
 		view.tintColor = .white
 		return view
 	}()
+	
 	
 	let imagePicker = UIImagePickerController()
 	
@@ -181,9 +188,14 @@ class NewObjectCreationView: SettingItemsVC, UITextFieldDelegate, UIImagePickerC
 	}
 	
 	@objc func handelAccept() {
-		let value = valueTextField.text ?? "0"
+		guard let value = NumberFormatter().number(from: valueTextField.text ?? "0") else {return}
+		
 		print("accept \(value)$")
 		valueTextField.resignFirstResponder()
+		
+		dismiss(animated: true) {
+			self.delegate?.didCreateNewObject(value: CGFloat(value), image: self.imageView.image ?? UIImage(named: "no_image2")!)
+		}
 	}
 	
 	
