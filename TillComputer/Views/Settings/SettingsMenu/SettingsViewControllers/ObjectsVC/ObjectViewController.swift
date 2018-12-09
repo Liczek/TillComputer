@@ -60,7 +60,7 @@ class ObjectViewController: SettingItemsVC, UITableViewDelegate, UITableViewData
 	
 	func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
 		let addObjectView = AddObjectView()
-		addObjectView.plusIconButton.addTarget(self, action: #selector(AddNewObject), for: .touchUpInside)
+		addObjectView.plusIconButton.addTarget(self, action: #selector(addNewObject), for: .touchUpInside)
 		return addObjectView
 	}
 	
@@ -68,11 +68,10 @@ class ObjectViewController: SettingItemsVC, UITableViewDelegate, UITableViewData
 		return 100
 	}
 	
-	@objc func AddNewObject() {
-		let row = objects.count
-		objects.append("obj\(objects.count + 1)")
-		let index = IndexPath(row: row, section: 0)
-		tableView.insertRows(at: [index], with: UITableView.RowAnimation.middle)
+	@objc func addNewObject() {
+		let newObjectCreatorVC = NewObjectCreationView()
+		let navController = UINavigationController(rootViewController: newObjectCreatorVC)
+		present(navController, animated: true, completion: nil)
 	}
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -80,5 +79,24 @@ class ObjectViewController: SettingItemsVC, UITableViewDelegate, UITableViewData
 		cell.isSelected = false
 	}
 	
+	func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+		let deleteAction = UITableViewRowAction(style: .normal, title: "Delete") { (action, indexPath) in
+			print("delete")
+		}
+		deleteAction.backgroundColor = .veryDarkRed
+		
+		let editAction = UITableViewRowAction(style: .normal, title: "Edit") { (action, indexPath) in
+			print("edit")
+		}
+		editAction.backgroundColor = UIColor.lightGold
+		return [editAction, deleteAction]
+	}
 
+	func didAddNewObject() {
+		let row = objects.count
+		objects.append("obj\(objects.count + 1)")
+		let index = IndexPath(row: row, section: 0)
+		tableView.insertRows(at: [index], with: UITableView.RowAnimation.middle)
+	}
+	
 }
