@@ -99,6 +99,9 @@ class NewObjectCreationView: SettingItemsVC, UITextFieldDelegate, UIImagePickerC
 		return view
 	}()
 	
+	var imageHeight: CGFloat = 200
+	var imageViewWidthAnchor: NSLayoutConstraint!
+	var imageViewRatio: CGFloat!
 	
 	let imagePicker = UIImagePickerController()
 	
@@ -121,6 +124,8 @@ class NewObjectCreationView: SettingItemsVC, UITextFieldDelegate, UIImagePickerC
 		let tapImage = UITapGestureRecognizer(target: self, action: #selector(handelImageSelection))
 		imageView.addGestureRecognizer(tapImage)
 		
+		
+		
 		NSLayoutConstraint.activate([
 			
 			containerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
@@ -129,9 +134,8 @@ class NewObjectCreationView: SettingItemsVC, UITextFieldDelegate, UIImagePickerC
 			containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
 			
 			imageView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 16),
-			imageView.heightAnchor.constraint(equalToConstant: 200),
-			imageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
-			imageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
+			imageView.heightAnchor.constraint(equalToConstant: imageHeight),
+			imageView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
 			
 			plusIcon.centerXAnchor.constraint(equalTo: containerView.centerXAnchor, constant: 0),
 			plusIcon.centerYAnchor.constraint(equalTo: containerView.centerYAnchor, constant: -32),
@@ -159,6 +163,12 @@ class NewObjectCreationView: SettingItemsVC, UITextFieldDelegate, UIImagePickerC
 			
 			])
 		
+		if imageView.image == nil {
+			imageViewWidthAnchor = imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 1.5)
+			imageViewWidthAnchor.isActive = true
+		} else {
+			self.setImageViewWidthAnchor()
+		}
 	}
 	
 	func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -171,6 +181,16 @@ class NewObjectCreationView: SettingItemsVC, UITextFieldDelegate, UIImagePickerC
 		tapLabel.isHidden = true
 		
 		dismiss(animated: true, completion: nil)
+		self.setImageViewWidthAnchor()
+		self.view.layoutIfNeeded()
+		
+	}
+	
+	fileprivate func setImageViewWidthAnchor() {
+		self.imageViewRatio = self.imageView.image!.size.width / self.imageView.image!.size.height
+		self.imageViewWidthAnchor.isActive = false
+		self.imageViewWidthAnchor = self.imageView.widthAnchor.constraint(equalToConstant: self.imageHeight * self.imageViewRatio)
+		self.imageViewWidthAnchor.isActive = true
 	}
 	
 	func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
